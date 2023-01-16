@@ -1,0 +1,16 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+     background-color: lightgray;
+}
+
+
+@import "blocks/button";
+@import "blocks/header";
+@import "blocks/main";
+@import "blocks/footer";
+

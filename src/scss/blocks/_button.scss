@@ -1,0 +1,22 @@
+.button {    
+    width: 150px;
+    height: 40px;
+    text-decoration: none;
+    text-align: center;
+    color: #7f8c8d;
+    cursor: pointer;
+    background: #2c3e50;
+    border-bottom: 10px solid #34495e;
+    transition: all .6s linear 0s;    
+    font-size: 20px;
+    &:hover {
+        color: #c8c8c8;
+        background: #111316;
+    }
+    &:active {
+        border-bottom: 10px solid #2ecc71;
+        color: #2ecc71;
+    }
+  }
+  
+ 

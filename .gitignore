@@ -86,11 +86,11 @@ web_modules/
 # Next.js build output
 .next
 out
-
+package-lock.json
 # Nuxt.js build / generate output
 .nuxt
 dist
-
+async-race-api
 # Gatsby files
 .cache/
 # Comment in the public line in if your project uses Gatsby and not Next.js
