@@ -9,8 +9,21 @@ body {
 }
 
 
+@import url('https://fonts.googleapis.com/css2?family=Metal+Mania&display=swap');
+
 @import "blocks/button";
 @import "blocks/header";
 @import "blocks/main";
 @import "blocks/footer";
+@import "blocks/garage";
 
+.mistake {    
+    position: relative;
+    &::after {
+        content: 'Please, enter car name';
+        position: absolute;
+        top: 10;
+        width: 400px;
+        color: crimson;
+    }
+}

@@ -1,0 +1,53 @@
+.garage {
+    &__items {
+        list-style-type: none;
+    }
+    &__item {
+        margin-top: 15px;
+        border-bottom: 3px dashed black;
+        &_wrapper {
+            margin-bottom: 10px;
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+
+            &-name {
+                cursor: default;
+                font-size: 28px;
+                font-family: 'Metal Mania', cursive;
+            }
+            &-selectBtn,
+            &-removeBtn {
+                font-size: 16px;
+                width: 70px;
+                height: 30px;                
+            }
+        }
+        &_config {  
+            &-btns {
+                display: flex;
+                flex-direction: row;
+                gap: 10px;
+            }           
+            &-startBtn,
+            &-resetBtn {
+                font-size: 16px;
+                width: 30px;
+                height: 30px; 
+                            
+            }
+
+
+            &-img {
+                max-width: 140px;
+                max-height: 50px;
+                background-color: transparent;
+                transform: scale(-1, 1);  
+                margin-top: 10px;              
+            }
+
+        }
+    }
+
+    
+}
