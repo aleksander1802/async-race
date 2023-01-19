@@ -1,6 +1,6 @@
 import { IGarage, ICar } from "../models/raceModel";
 import { element } from "../services/element";
-import { Config } from "../pages/main/listeners";
+import { removeCar, selectCar } from "../pages/main/listeners";
 
 export const createAllGarageItem = (array: IGarage) => {
   const items = element("ul", { class: "garage__items" });
@@ -17,12 +17,7 @@ export const createAllGarageItem = (array: IGarage) => {
 
 function garageItemConfig(item: ICar) {
   const garageItemConfig = element("div", { class: "garage__item_config" });
-  garageItemConfig.innerHTML = `                 
-        
-          <div class="garage__item_config-btns">
-          <button class="button garage__item_config-startBtn">A</button>
-          <button class="button garage__item_config-resetBtn">B</button>
-          </div>            
+  garageItemConfig.innerHTML = `
           <div class="garage__item_config-img" id=${item.id}>
           <svg
           xmlns:svg="http://www.w3.org/2000/svg"
@@ -42,8 +37,26 @@ function garageItemConfig(item: ICar) {
   return garageItemConfig;
 }
 
+const garageItemConfigBtns = () => {
+  const item = element("div", { class: "garage__item_config-btns" });
+  const itemStartBtn = element("button", {
+    class: "button garage__item_config-startBtn",
+  });
+  itemStartBtn.textContent = `A`;
+  const itemResetBtn = element("button", {
+    class: "button garage__item_config-resetBtn",
+  });
+  itemResetBtn.textContent = `B`;
+
+  item.append(itemStartBtn);
+  item.append(itemResetBtn);
+
+  return item;
+};
+
 export function createGarageItem(item: ICar) {
   const garageItem = garageItemConfig(item);
+  const garageBtns = garageItemConfigBtns();
   const elem = element("li", { class: "garage__item", id: `${item.id}` });
 
   const garageItemWrapper = element("div", { class: "garage__item_wrapper" });
@@ -52,6 +65,11 @@ export function createGarageItem(item: ICar) {
     class: "button button garage__item_wrapper-selectBtn",
   });
   selectBtn.textContent = `Select`;
+  selectBtn.addEventListener('click', (e) => {
+    selectCar(e)
+    
+  })
+
 
   const removeBtn = element("button", {
     class: "button button garage__item_wrapper-removeBtn",
@@ -59,7 +77,7 @@ export function createGarageItem(item: ICar) {
   removeBtn.textContent = "Remove";
 
   removeBtn.addEventListener("click", (e) => {
-    Config(e);
+    removeCar(e);
   });
 
   const itemWrapperName = element("div", {
@@ -71,6 +89,7 @@ export function createGarageItem(item: ICar) {
   garageItemWrapper.append(removeBtn);
   garageItemWrapper.append(itemWrapperName);
   elem.append(garageItemWrapper);
+  elem.append(garageBtns);
   elem.append(garageItem);
 
   return elem;

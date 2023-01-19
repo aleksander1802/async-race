@@ -1,6 +1,7 @@
 import CreateCar from "../../components/createCar";
 import RaceService from "../../services/RaceService";
-
+import UpdateCar from "../../components/updateCar";
+import { iCreateNewCar, SvgIconConstituentValues } from '../../models/raceModel';
 export const toGarage = () => {
   const garage = document.querySelector(".header__buttons_garage");
 
@@ -46,12 +47,72 @@ export const Create = () => {
   }
 };
 
+
+
 export const Update = () => {
   const update = document.querySelector(".main__options_item-updateBtn");
+  const CarReNameAndReColor = document.querySelector(".main__options_item-re");
+
   if (update) {
-    update.addEventListener("click", () => {
-      console.log("click");
+    update.addEventListener("click", () => {      
+      UpdateCar.updateNewCar()
     });
+  }
+
+  if (CarReNameAndReColor) {
+    CarReNameAndReColor.addEventListener("input", (e) => {
+      const target = e.target;      
+      
+      if (target instanceof HTMLInputElement) {
+        if (target.classList.contains("main__options_item-rename")) {
+          UpdateCar.inputReNameValue = target.value.trim();
+          console.log(UpdateCar.inputReNameValue);
+          
+        }
+        if (target.classList.contains("main__options_item-recolor")) {
+          UpdateCar.inputReColorValue = target.value;
+          console.log(UpdateCar.inputReColorValue);
+        }
+      }
+    });
+  }
+
+
+};
+
+export const selectCar = (e: MouseEvent) => {
+
+  const currentRenameInput = document.querySelector('.main__options_item-rename')
+  const target = e.target;
+  if (target instanceof HTMLElement) {
+    if (
+      target.parentNode?.parentNode &&
+      target.parentNode?.parentNode instanceof HTMLElement
+    ) {
+
+      const currentNode = target.parentNode.lastChild   
+      const svgNode = target.parentNode.parentNode.lastChild?.childNodes[1].childNodes[1]
+      const currentIDs = target.parentNode.parentNode.getAttribute("id");
+      const currentTextContent = target.parentNode.lastChild?.textContent  
+      if (currentRenameInput && currentRenameInput instanceof HTMLInputElement) {
+        currentRenameInput.value = `${currentTextContent}`      
+        UpdateCar.inputReNameValue = `${currentTextContent}`        
+        
+        if (currentNode instanceof HTMLElement) {
+         UpdateCar.currentNodeChild = currentNode  
+        }
+
+        if (svgNode instanceof SVGElement) {
+          UpdateCar.currentSVGNodeElement = svgNode
+        }
+        
+      }     
+      
+      if (currentIDs) {        
+        UpdateCar.currentID = currentIDs;
+              
+      }
+    }
   }
 };
 
@@ -81,7 +142,7 @@ export const Generate = () => {
   }
 };
 
-export const Config = (e: MouseEvent) => {
+export const removeCar = (e: MouseEvent) => {
   const target = e.target;
   if (target instanceof HTMLElement) {
     if (
@@ -99,3 +160,5 @@ export const Config = (e: MouseEvent) => {
     }
   }
 };
+
+

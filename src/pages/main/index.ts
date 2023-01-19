@@ -37,7 +37,7 @@ class MainPage extends Page {
       <input class="main__options_item-newcolor" value="#2ecc71" type="color" >
       <button class="button main__options_item-createBtn">Create</button>
     </div>
-    <div class="main__options_item">
+    <div class="main__options_item main__options_item-re">
       <input class="main__options_item-rename" placeholder="Rename car" type="text" >
       <input class="main__options_item-recolor" type="color" >
       <button class="button main__options_item-updateBtn">Update</button>

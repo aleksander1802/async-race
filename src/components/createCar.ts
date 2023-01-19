@@ -1,8 +1,7 @@
 import RaceService from "../services/RaceService";
 import { IGarage, iCreateNewCar } from "../models/raceModel";
-import { updateGarage } from "../pages/main/updateGarage";
 import { createGarageItem } from "./garage";
-// import { Config } from "../pages/main/listeners";
+
 
 class CreateCar {
   static inputNameValue: string = "";
