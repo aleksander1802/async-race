@@ -1,6 +1,5 @@
 import CreateCar from "../../components/createCar";
 import RaceService from "../../services/RaceService";
-import { updateGarage } from "./updateGarage";
 
 export const toGarage = () => {
   const garage = document.querySelector(".header__buttons_garage");
@@ -82,25 +81,21 @@ export const Generate = () => {
   }
 };
 
-export const Config = () => {
-  const garageItem = document.querySelectorAll(".garage__item");
-  garageItem.forEach((item) => {
-    item.addEventListener("click", (e) => {
-      const current = e.currentTarget;
-      const target = e.target;
+export const Config = (e: MouseEvent) => {
+  const target = e.target;
+  if (target instanceof HTMLElement) {
+    if (
+      target.parentNode?.parentNode &&
+      target.parentNode?.parentNode instanceof HTMLElement
+    ) {
+      const currentNode = target.parentNode.parentNode;
+      const currentID = target.parentNode?.parentNode.getAttribute("id");
 
-      if (target && target instanceof HTMLButtonElement) {
-        if (target.classList.contains("garage__item_wrapper-removeBtn")) {
-          if (current instanceof HTMLLIElement) {
-            const currentID = current.getAttribute("id");
-            if (currentID) {
-              RaceService()
-                .deleteCar(currentID)
-                .then(() => current.remove());
-            }
-          }
-        }
+      if (currentID) {
+        RaceService()
+          .deleteCar(currentID)
+          .then(() => currentNode.remove());
       }
-    });
-  });
+    }
+  }
 };

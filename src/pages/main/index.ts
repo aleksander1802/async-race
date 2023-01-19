@@ -2,7 +2,7 @@ import Page from "../../services/template";
 import { element } from "../../services/element";
 import { createAllGarageItem } from "../../components/garage";
 import RaceService from "../../services/RaceService";
-import { Config } from "../../pages/main/listeners";
+// import { Config } from "../../pages/main/listeners";
 class MainPage extends Page {
   constructor(id: string) {
     super(id);
@@ -63,8 +63,7 @@ class MainPage extends Page {
 
     RaceService()
       .getAllCars()
-      .then((data) => garageWrapper.append(createAllGarageItem(data)))
-      .then(() => Config());
+      .then((data) => garageWrapper.append(createAllGarageItem(data)))      
 
     return garage;
   }

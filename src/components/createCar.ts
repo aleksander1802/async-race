@@ -2,7 +2,7 @@ import RaceService from "../services/RaceService";
 import { IGarage, iCreateNewCar } from "../models/raceModel";
 import { updateGarage } from "../pages/main/updateGarage";
 import { createGarageItem } from "./garage";
-import { Config } from "../pages/main/listeners";
+// import { Config } from "../pages/main/listeners";
 
 class CreateCar {
   static inputNameValue: string = "";
@@ -35,8 +35,7 @@ class CreateCar {
     RaceService()
       .createNewCar(json)
       .then((data) => createGarageItem(data))
-      .then((data) => garageItems?.append(data))
-      .then(() => Config());
+      .then((data) => garageItems?.append(data))      
 
     if (currentNameInputValue instanceof HTMLInputElement) {
       currentNameInputValue.value = "";

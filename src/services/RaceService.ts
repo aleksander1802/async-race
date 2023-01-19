@@ -18,7 +18,18 @@ const RaceService = () => {
     }    
 
     const deleteCar = async (id: string) => {
-        await request(`${_apiBase}${_garage}/${id}`, 'DELETE');
+
+        try {
+           const res =  await request(`${_apiBase}${_garage}/${id}`, 'DELETE');
+           console.log(res);
+           
+        } catch(error) {
+           
+
+            throw new Error(`Coold not delete, error:${error}`)
+            
+        }
+        
     }  
 
     const createNewCar = async (obj: string) => {
