@@ -1,6 +1,6 @@
 import Page from "../../services/template";
 import MainPage from "../../pages/main";
-import { Create, toGarage, toWinners, Update, Race, Reset, Generate } from "../../pages/main/listeners";
+import { Create, toGarage, toWinners, Update, Race, Reset, Generate, prevPage, nextPage } from "../../pages/main/listeners";
 class App {
     private  container: HTMLElement = document.body;
     private  defaultPageID = 'current-page'
@@ -30,13 +30,14 @@ class App {
         Update();
         Race();
         Reset();
-        Generate();        
+        Generate();  
+        prevPage();
+        nextPage()  
     }
 
     private enableRouteChangeReload() {
         window.addEventListener('DOMContentLoaded', this.launchListeners)
-    }
-        
+    }        
         
     private hashChangeHandle() { 
         this.renderPage(this.defaultPageID)

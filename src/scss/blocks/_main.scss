@@ -64,5 +64,14 @@
             text-align: center;
             font-family: 'Metal Mania', cursive;
         }
+        &_change {
+            width: 70%;
+            margin: 0 auto;
+            margin-top: 20px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
     }
 }

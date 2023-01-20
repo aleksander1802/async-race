@@ -1,8 +1,8 @@
-import { IGarage, ICar } from "../models/raceModel";
+import { IGarage, ICar, ICurrentArray } from "../models/raceModel";
 import { element } from "../services/element";
 import { removeCar, selectCar } from "../pages/main/listeners";
 
-export const createAllGarageItem = (array: IGarage) => {
+export const createAllGarageItem = (array: ICurrentArray) => {
   const items = element("ul", { class: "garage__items" });
 
   const render = array.map((item) => {
@@ -15,7 +15,7 @@ export const createAllGarageItem = (array: IGarage) => {
   return items;
 };
 
-function garageItemConfig(item: ICar) {
+export function garageItemConfig(item: ICar) {
   const garageItemConfig = element("div", { class: "garage__item_config" });
   garageItemConfig.innerHTML = `
           <div class="garage__item_config-img" id=${item.id}>
@@ -37,7 +37,7 @@ function garageItemConfig(item: ICar) {
   return garageItemConfig;
 }
 
-const garageItemConfigBtns = () => {
+export const garageItemConfigBtns = () => {
   const item = element("div", { class: "garage__item_config-btns" });
   const itemStartBtn = element("button", {
     class: "button garage__item_config-startBtn",
@@ -66,10 +66,8 @@ export function createGarageItem(item: ICar) {
   });
   selectBtn.textContent = `Select`;
   selectBtn.addEventListener('click', (e) => {
-    selectCar(e)
-    
+    selectCar(e)    
   })
-
 
   const removeBtn = element("button", {
     class: "button button garage__item_wrapper-removeBtn",

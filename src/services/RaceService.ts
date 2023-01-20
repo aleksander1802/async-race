@@ -7,11 +7,11 @@ const RaceService = () => {
   const _apiBase = "http://127.0.0.1:3000/";
   const _garage = "garage";
 
-  const _page = 1;
-  const _limit = 10;
+  let page = 1;
+  const _limit = 7;
 
   const getAllCars: () => Promise<IGarage> = async () => {
-    const res = await request(`${_apiBase}${_garage}?_page=${_page}`);
+    const res = await request(`${_apiBase}${_garage}`);
     return res;
   };
 
@@ -22,12 +22,14 @@ const RaceService = () => {
   };
 
   const ReUpdateCar = async (obj: string, id: string) => {
-    const res: ICar = await request(`${_apiBase}${_garage}/${id}`, "PATCH", obj);
+    const res: ICar = await request(
+      `${_apiBase}${_garage}/${id}`,
+      "PATCH",
+      obj
+    );
 
     return res;
   };
-
-
 
   const deleteCar = async (id: string) => {
     try {
@@ -37,8 +39,6 @@ const RaceService = () => {
       throw new Error(`Coold not delete, error:${error}`);
     }
   };
-
- 
 
   return { getAllCars, deleteCar, createNewCar, ReUpdateCar };
 };
