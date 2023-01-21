@@ -30,6 +30,9 @@ class Pagination {
 
     const items = createAllGarageItem(Pagination.currentArray);
 
+    console.log(CreateCar.currentCount);
+    
+
     return items;
   }
 

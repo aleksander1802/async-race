@@ -16,6 +16,7 @@ class CreateCar {
   static createNewCar = () => { 
     
     const garageItems = document.querySelector(".garage__items"); 
+    const itemPerPage = 7;
    
     const nameInputBtn = document.querySelector(
       ".main__options_item-createBtn"
@@ -29,7 +30,7 @@ class CreateCar {
       return;
     } else {
       nameInputBtn?.classList.remove("mistake");
-    }
+    }    
 
     const newCar: iCreateNewCar = {
       name: CreateCar.inputNameValue,
@@ -38,11 +39,12 @@ class CreateCar {
 
     const json = JSON.stringify(newCar); 
     
-    if (CreateCar.currentCount === 7) {
+    if (CreateCar.currentCount === itemPerPage) {
       RaceService()
       .createNewCar(json)
-      .then((data) => createGarageItem(data))
+      .then((data) => createGarageItem(data))      
     } else {      
+      CreateCar.currentCount+=1
       RaceService()
       .createNewCar(json)
       .then((data) => createGarageItem(data))
