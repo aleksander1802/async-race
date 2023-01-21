@@ -47,7 +47,7 @@ export class PagesChange {
           return;
         } else {
           Pagination.currentPage -= 1;
-          console.log(Pagination.currentPage);
+          
           
           if (currentNode) currentNode.innerHTML = "";
           RaceService()
@@ -58,6 +58,17 @@ export class PagesChange {
             .then((data) => currentNode?.append(data));
         }
       };
+
+      static changeTextContentOfCurrentPage () {
+
+        const currentPage = document.querySelector('.main__garage_page');
+        const currentPaginationPage = Pagination.currentPage;
+
+        if (currentPage instanceof HTMLElement && currentPage) {
+          currentPage.textContent = `Page ${currentPaginationPage}`
+        }
+
+      }
 
 }
 

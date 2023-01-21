@@ -2,6 +2,7 @@ import { IGarage, ICar, ICurrentArray } from "../models/raceModel";
 import { element } from "../services/element";
 import { removeCar, selectCar } from "../pages/main/listeners";
 import { StartSingle } from "./startSingle";
+import { ResetSingle } from "./resetSingle";
 
 export const createAllGarageItem = (array: ICurrentArray) => {
   const items = element("ul", { class: "garage__items" });
@@ -143,6 +144,10 @@ export const garageItemConfigBtns = () => {
   });
   itemResetBtn.textContent = `B`;
   itemResetBtn.disabled = true;
+  itemResetBtn.addEventListener('click', (e) => {
+    ResetSingle.resetCurrentCar(e);
+  })
+  // resetCurrentCar
 
   item.append(itemStartBtn);
   item.append(itemResetBtn);

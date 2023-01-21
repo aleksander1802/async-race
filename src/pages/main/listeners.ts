@@ -5,7 +5,9 @@ import CreateCar from "../../components/createCar";
 import RaceService from "../../services/RaceService";
 import UpdateCar from "../../components/updateCar";
 import { updateGarageCount } from "../../pages/main/index";
-import { StartAll } from '../../components/startAll';
+import { StartAndResetAll } from '../../components/startAll';
+import { Winner } from '../../components/winner';
+
 
 export const toGarage = () => {
   const garage = document.querySelector(".header__buttons_garage");
@@ -121,9 +123,11 @@ export const selectCar = (e: MouseEvent) => {
 export const Race = () => {
   const race = document.querySelector(".main__options_item-raceBtn");
   if (race) {
-    race.addEventListener("click", () => {
-      console.log("click");
-      StartAll.startAll()
+    race.addEventListener("click", (e) => {
+      if (e instanceof MouseEvent) {
+        StartAndResetAll.startAll(e)        
+      }
+      
     });
   }
 };
@@ -132,8 +136,12 @@ export const Race = () => {
 export const Reset = () => {
   const reset = document.querySelector(".main__options_item-resetBtn");
   if (reset) {
-    reset.addEventListener("click", () => {
-      console.log("click");
+    reset.addEventListener("click", (e) => {
+      if (e instanceof MouseEvent) {
+        StartAndResetAll.resetAll(e);
+        Winner.resetWinnerTextContent()
+      }
+      
     });
   }
 };
@@ -174,6 +182,7 @@ export const prevPage = () => {
   if (prevBtn) {
     prevBtn.addEventListener("click", () => {
       PagesChange.prevPageButton()
+      PagesChange.changeTextContentOfCurrentPage()
     });
   }
 };
@@ -184,6 +193,7 @@ export const nextPage = () => {
   if (nextBtn) {
     nextBtn.addEventListener("click", () => {
       PagesChange.nextPageButton()
+      PagesChange.changeTextContentOfCurrentPage()
     });
   }
 };

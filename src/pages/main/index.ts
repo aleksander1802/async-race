@@ -25,7 +25,7 @@ class MainPage extends Page {
   protected createHeader() {
     const header = element("header", { class: "header" });
     header.innerHTML = `
-    <h1 class="header__title">Async Race</h1>
+    <h1 class="header__title">Async Race</h1>    
     <div class="header__buttons">    
     <button class="button header__buttons_garage">Garage</button>
     <button class="button header__buttons_winners">Winners</button>
@@ -59,7 +59,7 @@ class MainPage extends Page {
     </div>
     <div class="main__options_item main__options_item-change">      
       <button class="button main__options_item-raceBtn">Race</button>
-      <button class="button main__options_item-resetBtn">Reset</button>
+      <button class="button main__options_item-resetBtn" disabled>Reset</button>
       <button class="button main__options_item-generateBtn">Generate cars (100)</button>
     </div>    
     `;
@@ -74,6 +74,7 @@ class MainPage extends Page {
     let count = 0;
     garage.innerHTML = `
     <h2 class="main__garage_title">Garage ${count}</h2>
+    <div class="main__garage_title-winner"></div>
     <div class="main__garage_page">Page 1</div>    
     `;
     garage.append(garageWrapper); 

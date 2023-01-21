@@ -40,10 +40,19 @@ const RaceService = () => {
 
   const deleteCar = async (id: string) => {
     try {
-      const res = await request(`${_apiBase}${_garage}/${id}`, "DELETE");
-      console.log(res);
+      const res: void = await request(`${_apiBase}${_garage}/${id}`, "DELETE");
+      
     } catch (error) {
       throw new Error(`Coold not delete, error:${error}`);
+    }
+  };
+
+  const getCar = async (id: string) => {
+    try {
+      const res: ICar = await request(`${_apiBase}${_garage}/${id}`, "GET");
+      return res
+    } catch (error) {
+      throw new Error(`Coold not get current car, error:${error}`);
     }
   };
 
@@ -56,11 +65,19 @@ const RaceService = () => {
   };
 
   const EngineDamage = async (id: string) => {
-    const res: IEngineToDriveMode | number = await request(
-      `${_apiBase}${_engine}?id=${id}&status=drive`,
-      "PATCH"
-    );
-    return res;
+
+    try {
+      const res: IEngineToDriveMode | number = await request(
+        `${_apiBase}${_engine}?id=${id}&status=drive`,
+        "PATCH"
+      );
+      return res
+    } catch (error ) {
+      if (error instanceof Error) {
+        console.log(`Слишком быстро останавливаешь двигатель, лови ошибку и описание: ${error.message}`);        
+      }
+    }
+    
   };
 
   return {
@@ -70,6 +87,7 @@ const RaceService = () => {
     ReUpdateCar,
     StartOrStopEngine,
     EngineDamage,
+    getCar
   };
 };
 
