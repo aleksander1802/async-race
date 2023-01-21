@@ -44,7 +44,7 @@ class CreateCar {
       .createNewCar(json)
       .then((data) => createGarageItem(data))      
     } else {      
-      CreateCar.currentCount+=1
+      CreateCar.currentCount += 1
       RaceService()
       .createNewCar(json)
       .then((data) => createGarageItem(data))

@@ -5,7 +5,7 @@ import CreateCar from "../../components/createCar";
 import RaceService from "../../services/RaceService";
 import UpdateCar from "../../components/updateCar";
 import { updateGarageCount } from "../../pages/main/index";
-
+import { StartAll } from '../../components/startAll';
 
 export const toGarage = () => {
   const garage = document.querySelector(".header__buttons_garage");
@@ -117,14 +117,18 @@ export const selectCar = (e: MouseEvent) => {
   }
 };
 
+
 export const Race = () => {
   const race = document.querySelector(".main__options_item-raceBtn");
   if (race) {
     race.addEventListener("click", () => {
       console.log("click");
+      StartAll.startAll()
     });
   }
 };
+
+
 export const Reset = () => {
   const reset = document.querySelector(".main__options_item-resetBtn");
   if (reset) {

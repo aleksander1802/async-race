@@ -24,6 +24,10 @@
             }
         }
         &_config {  
+            width: 100%;
+            display: flex;
+            position: relative;
+            height: 60px;
             &-btns {
                 display: flex;
                 flex-direction: row;
@@ -33,19 +37,27 @@
             &-resetBtn {
                 font-size: 16px;
                 width: 30px;
-                height: 30px; 
-                            
+                height: 30px;
             }
-
-
             &-img {
-                max-width: 140px;
-                max-height: 50px;
-                background-color: transparent;
-                transform: scale(-1, 1);  
-                margin-top: 10px;              
+                display: flex;
+                position: relative;
+                width: 100%;
+                height: 50px;
+                background-color: transparent;                  
+                margin-top: 10px; 
+                @keyframes swipeToRight {
+                    0%   {transform: translateX(0);
+                    }                    
+                    100% {transform: translateX(calc(100vw - 200px))
+                     }                    
+                }                       
             }
-
+            &::after {
+                content: url('./assets/images/finish.svg');
+                position: absolute;
+                left: calc(100vw - 250px);                
+            }
         }
     }
 

@@ -25,10 +25,26 @@ export interface IWinners {
   wins: number;
   time: number;
 }
+export interface IEngineStartOrStop {  
+    velocity: number;
+    distance: number;
+}
+export interface IEngineStartOrStopRequest {  
+    id: number;
+    status: string;
+}
 
+export interface IEngineToDriveMode {
+  success: boolean
+}
 
 export interface iCreateNewCar {
   name: string,
   color: string
+}
+
+export type IWinner = {
+  currentId: string;
+  animationSpeed: number;
 }
 

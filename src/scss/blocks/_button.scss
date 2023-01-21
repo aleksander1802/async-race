@@ -17,6 +17,12 @@
         border-bottom: 10px solid #2ecc71;
         color: #2ecc71;
     }
+    &:disabled {
+        background: #7f8c8d;
+        transition: none;
+        border-bottom:  10px solid black;
+        color: black;
+    }
   }
   
  

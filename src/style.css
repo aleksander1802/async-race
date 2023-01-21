@@ -31,6 +31,13 @@ body {
   border-bottom: 10px solid #2ecc71;
   color: #2ecc71;
 }
+.button:disabled {
+  background: #7f8c8d;
+  -webkit-transition: none;
+  transition: none;
+  border-bottom: 10px solid black;
+  color: black;
+}
 
 .header {
   padding: 20px;
@@ -210,6 +217,14 @@ body {
   width: 70px;
   height: 30px;
 }
+.garage__item_config {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+  height: 60px;
+}
 .garage__item_config-btns {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -226,12 +241,39 @@ body {
   height: 30px;
 }
 .garage__item_config-img {
-  max-width: 140px;
-  max-height: 50px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+  width: 100%;
+  height: 50px;
   background-color: transparent;
-  -webkit-transform: scale(-1, 1);
-          transform: scale(-1, 1);
   margin-top: 10px;
+}
+@-webkit-keyframes swipeToRight {
+  0% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+  }
+  100% {
+    -webkit-transform: translateX(calc(100vw - 200px));
+            transform: translateX(calc(100vw - 200px));
+  }
+}
+@keyframes swipeToRight {
+  0% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+  }
+  100% {
+    -webkit-transform: translateX(calc(100vw - 200px));
+            transform: translateX(calc(100vw - 200px));
+  }
+}
+.garage__item_config::after {
+  content: url("./assets/images/finish.svg");
+  position: absolute;
+  left: calc(100vw - 250px);
 }
 
 .mistake {
