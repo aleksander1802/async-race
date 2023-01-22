@@ -1,21 +1,19 @@
-
-import { PagesChange } from '../../components/pageChange';
+import { PagesChange } from "../../components/pageChange";
 import { generateCars } from "../../components/generateCars";
 import CreateCar from "../../components/createCar";
 import RaceService from "../../services/RaceService";
 import UpdateCar from "../../components/updateCar";
 import { updateGarageCount } from "../../pages/main/index";
-import { StartAndResetAll } from '../../components/startAll';
-import { Winner } from '../../components/winner';
-import { WinnerPage } from '../../pages/winners/winnerPage';
-
+import { StartAndResetAll } from "../../components/startAll";
+import { Winner } from "../../components/winner";
+import { WinnerPage } from "../../pages/winners/winnerPage";
 
 export const toGarage = () => {
   const garage = document.querySelector(".header__buttons_garage");
 
   if (garage) {
     garage.addEventListener("click", () => {
-      WinnerPage.hideWinnerPage()
+      WinnerPage.hideWinnerPage();
     });
   }
 };
@@ -24,7 +22,7 @@ export const toWinners = () => {
   const winners = document.querySelector(".header__buttons_winners");
   if (winners) {
     winners.addEventListener("click", () => {
-      WinnerPage.hideMainPage()
+      WinnerPage.hideMainPage();
     });
   }
 };
@@ -85,8 +83,8 @@ export const Update = () => {
 export const selectCar = (e: MouseEvent) => {
   const currentRenameInput = document.querySelector(
     ".main__options_item-rename"
-  ); 
-  
+  );
+
   const target = e.target;
   if (target instanceof HTMLElement) {
     if (
@@ -121,19 +119,16 @@ export const selectCar = (e: MouseEvent) => {
   }
 };
 
-
 export const Race = () => {
   const race = document.querySelector(".main__options_item-raceBtn");
   if (race) {
     race.addEventListener("click", (e) => {
       if (e instanceof MouseEvent) {
-        StartAndResetAll.startAll(e)        
+        StartAndResetAll.startAll(e);
       }
-      
     });
   }
 };
-
 
 export const Reset = () => {
   const reset = document.querySelector(".main__options_item-resetBtn");
@@ -141,9 +136,8 @@ export const Reset = () => {
     reset.addEventListener("click", (e) => {
       if (e instanceof MouseEvent) {
         StartAndResetAll.resetAll(e);
-        Winner.resetWinnerTextContent()
+        Winner.resetWinnerTextContent();
       }
-      
     });
   }
 };
@@ -172,16 +166,26 @@ export const removeCar = (e: MouseEvent) => {
         RaceService()
           .deleteCar(currentID)
           .then(() => currentNode.remove())
-          .then(() => updateGarageCount())
+          .then(() => updateGarageCount());
 
-          RaceService().getAllWinners().then(data => {
-              data.map(item => {
-                if(item.id === +currentID) {
-                  RaceService().deleteWinner(currentID)  
-                }
-              })
-          })
-          
+        RaceService()
+          .getAllWinners()
+          .then((data) => {
+            data.map((item) => {
+              if (item.id === +currentID) {
+                RaceService().deleteWinner(currentID);
+
+                const winnerRemove = document.querySelectorAll(
+                  ".winner__wrapper_item"
+                );
+                winnerRemove.forEach((item) => {
+                  if (item.getAttribute("id") === currentID) {
+                    item.remove();
+                  }
+                });
+              }
+            });
+          });
       }
     }
   }
@@ -192,21 +196,19 @@ export const prevPage = () => {
 
   if (prevBtn) {
     prevBtn.addEventListener("click", () => {
-      PagesChange.prevPageButton()
-      PagesChange.changeTextContentOfCurrentPage()
+      PagesChange.prevPageButton();
+      PagesChange.changeTextContentOfCurrentPage();
     });
   }
 };
-
 
 export const nextPage = () => {
   const nextBtn = document.querySelector(".main__garage_change-next");
 
   if (nextBtn) {
     nextBtn.addEventListener("click", () => {
-      PagesChange.nextPageButton()
-      PagesChange.changeTextContentOfCurrentPage()
+      PagesChange.nextPageButton();
+      PagesChange.changeTextContentOfCurrentPage();
     });
   }
 };
-

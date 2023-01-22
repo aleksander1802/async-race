@@ -1,15 +1,14 @@
-import { updateGarageCount } from './../main/index';
+import { updateGarageCount } from "./../main/index";
 import { element } from "../../services/element";
 import { IWinner, IWinnersData, IUpdateWinner } from "../../models/raceModel";
 import RaceService from "../../services/RaceService";
 
 export class WinnerPage {
-
   static numberWinner = 0;
   static currentPage = 1;
   static pagesAtAll: number;
 
-  static currentArray: IWinnersData[] 
+  static currentArray: IWinnersData[];
 
   static hideWinnerPage() {
     const winnerPage = document.querySelector(".main__winner");
@@ -59,100 +58,89 @@ export class WinnerPage {
         return WinnerPage.createAllWinnersItem(data);
       })
       .then((data) => winnerWrapper.append(data))
-      .then(() => winner.append(WinnerPage.pageWinnerChange()))
+      .then(() => winner.append(WinnerPage.pageWinnerChange()));
     return winner;
   }
 
   static pageWinnerChange() {
     const change = element("div", { class: "main__winner_change" });
-    const prev = element("button", { class: "button main__winner_change-prev" });
-    prev.textContent = `Previous`
-    const next = element("button", { class: "button main__winner_change-next" });
-    next.textContent = `Next`
+    const prev = element("button", {
+      class: "button main__winner_change-prev",
+    });
+    prev.textContent = `Previous`;
+    const next = element("button", {
+      class: "button main__winner_change-next",
+    });
+    next.textContent = `Next`;
 
-    prev.addEventListener('click', () => {
-      WinnerPage.prevWinnerPage()      
-    })
+    prev.addEventListener("click", () => {
+      WinnerPage.prevWinnerPage();
+    });
 
-    next.addEventListener('click', () => {      
-      WinnerPage.nextWinnerPage()    
-      
-    })
-
+    next.addEventListener("click", () => {
+      WinnerPage.nextWinnerPage();
+    });
 
     change.append(prev);
-    change.append(next)
+    change.append(next);
 
-    return change
+    return change;
   }
 
   static nextWinnerPage() {
-        const itemPerPage = 10;
-        const currentPage = WinnerPage.currentPage;
-        const pagesAtAll = WinnerPage.pagesAtAll;
-        const winnerPageCount = document.querySelector('.main__winner_page')
-        const currentNode = document.querySelector(".winner__items_wrapper"); 
-        
-        if (currentPage === pagesAtAll) {
-            return
-        } else {
-          WinnerPage.currentPage += 1
-          WinnerPage.numberWinner = 0
+    const currentPage = WinnerPage.currentPage;
+    const pagesAtAll = WinnerPage.pagesAtAll;
+    const winnerPageCount = document.querySelector(".main__winner_page");
+    const currentNode = document.querySelector(".winner__items_wrapper");
 
-          if (winnerPageCount) {
-            winnerPageCount.textContent = `Page ${WinnerPage.currentPage}`
+    if (currentPage === pagesAtAll) {
+      return;
+    } else {
+      WinnerPage.currentPage += 1;
+      WinnerPage.numberWinner = 0;
+
+      if (winnerPageCount) {
+        winnerPageCount.textContent = `Page ${WinnerPage.currentPage}`;
+      }
+      RaceService()
+        .getAllWinners(WinnerPage.currentPage)
+        .then((data) => {
+          WinnerPage.currentArray = data;
+
+          if (currentNode) {
+            currentNode.innerHTML = "";
+            const newList = WinnerPage.createAllWinnersItem(data);
+            currentNode.append(newList);
           }
-          RaceService().getAllWinners(WinnerPage.currentPage).then(data => {
-            WinnerPage.currentArray = data
-            console.log(WinnerPage.currentArray);
-            
-            if (currentNode) {
-              currentNode.innerHTML = '';
-             const newList =  WinnerPage.createAllWinnersItem(data)
-             currentNode.append(newList)
-            }
-
-            
-
-          });
-          
-        }
-
-          
-    
+        });
+    }
   }
 
- 
-
   static prevWinnerPage() {
-    
-    const currentNode = document.querySelector(".winner__items_wrapper"); 
-    const winnerPageCount = document.querySelector('.main__winner_page')
+    const currentNode = document.querySelector(".winner__items_wrapper");
+    const winnerPageCount = document.querySelector(".main__winner_page");
     if (WinnerPage.currentPage === 1) {
-      return
+      return;
     } else {
-      WinnerPage.currentPage -= 1
-      WinnerPage.numberWinner = 0
+      WinnerPage.currentPage -= 1;
+      WinnerPage.numberWinner = 0;
 
-      
       if (winnerPageCount) {
-            winnerPageCount.textContent = `Page ${WinnerPage.currentPage}`
-          }
-      RaceService().getAllWinners(WinnerPage.currentPage).then(data => {
-        WinnerPage.currentArray = data
-        console.log(WinnerPage.currentArray);
-        
-        if (currentNode) {
-          currentNode.innerHTML = '';
-         const newList =  WinnerPage.createAllWinnersItem(data)
-         currentNode.append(newList)
-        }
+        winnerPageCount.textContent = `Page ${WinnerPage.currentPage}`;
+      }
+      RaceService()
+        .getAllWinners(WinnerPage.currentPage)
+        .then((data) => {
+          WinnerPage.currentArray = data;
+          console.log(WinnerPage.currentArray);
 
-      })
-      
+          if (currentNode) {
+            currentNode.innerHTML = "";
+            const newList = WinnerPage.createAllWinnersItem(data);
+            currentNode.append(newList);
+          }
+        });
     }
-    
-    
   }
 
   static createAllWinnersItem = (array: IWinnersData[]) => {
@@ -169,19 +157,26 @@ export class WinnerPage {
   };
 
   static createWinnerItem(obj: IWinnersData) {
-    const item = element("li", { class: "winner__wrapper_item" });
+    const item = element("li", {
+      class: "winner__wrapper_item",
+      id: `${obj.id}`,
+    });
     const SVG = WinnerPage.winnerSVG(obj);
     const stringID = `${obj.id}`;
     const time = obj.time;
+
+    let pageNumber =
+      WinnerPage.currentPage === 1
+        ? (WinnerPage.numberWinner += 1)
+        : WinnerPage.currentPage === 2
+        ? 10 + (WinnerPage.numberWinner += 1)
+        : (WinnerPage.currentPage - 1) * 10 + (WinnerPage.numberWinner += 1);
 
     RaceService()
       .getCar(stringID)
       .then((data) => {
         item.innerHTML = `
-            <div class="winner__wrapper_item-id">${              
-              WinnerPage.numberWinner += 1
-              
-               }</div> 
+            <div class="winner__wrapper_item-id">${pageNumber}</div> 
         `;
         item.append(SVG);
 
@@ -206,75 +201,68 @@ export class WinnerPage {
   }
 
   static createWinner(obj: IWinner) {
-    const currentWinnerID = `${obj.currentId}`
+    const currentWinnerID = `${obj.currentId}`;
 
-    RaceService().getWinner(currentWinnerID).then(data => {
+    RaceService()
+      .getWinner(currentWinnerID)
+      .then((data) => {
+        if (data === "error") {
+          const newWinner: IWinnersData = {
+            id: +obj.currentId,
+            wins: 1,
+            time: obj.animationSpeed,
+          };
 
+          const json = JSON.stringify(newWinner);
 
-        if (data === 'error' ) {  
-            const newWinner: IWinnersData = {
-                id: +obj.currentId ,
-                wins: 1,
-                time: obj.animationSpeed
-              };
-          
-              const json = JSON.stringify(newWinner); 
-              
+          RaceService()
+            .createNewWinner(json)
+            .then((data) => {
+              const listItem = WinnerPage.createWinnerItem(data);
 
-              RaceService().createNewWinner(json).then(data => {
-                
-
-                const listItem = WinnerPage.createWinnerItem(data)
-
-                console.log(WinnerPage.currentPage, WinnerPage.pagesAtAll, WinnerPage.currentArray.length);
-                
-                if (WinnerPage.currentPage === WinnerPage.pagesAtAll && WinnerPage.currentArray.length < 10) {
-
-                   const currentNode = document.querySelector('.winner__wrapper')
-                   if (currentNode) {
-                    currentNode.append(listItem)
-                   }
-                }                
-                
-              }).then(() => WinnerPage.updateWinnerCount())
-
+              if (
+                (WinnerPage.currentPage === WinnerPage.pagesAtAll &&
+                  WinnerPage.currentArray.length < 10) ||
+                WinnerPage.pagesAtAll === 0
+              ) {
+                const currentNode = document.querySelector(".winner__wrapper");
+                if (currentNode) {
+                  currentNode.append(listItem);
+                }
+              }
+            })
+            .then(() => WinnerPage.updateWinnerCount());
         } else {
+          if (data instanceof Object) {
+            const currentTime = obj.animationSpeed;
+            const dataTime = data.time;
+            const newTime = Math.min(currentTime, dataTime);
+            const currentId = data.id;
 
-            if (data instanceof Object) {
+            const newWinner: IUpdateWinner = {
+              wins: (data.wins += 1),
+              time: newTime,
+            };
 
-                const currentTime = obj.animationSpeed;
-                const dataTime = data.time
-                const newTime = Math.min(currentTime, dataTime);
-                const currentId = data.id
-
-                const newWinner: IUpdateWinner = {
-                    wins: data.wins += 1,                    
-                    time: newTime
-                  };
-              
-                  const json = JSON.stringify(newWinner);
-                  RaceService().updateWinner(json, currentId)                
-            }
-            
+            const json = JSON.stringify(newWinner);
+            RaceService().updateWinner(json, currentId);
+          }
         }
-
-    } )
-    
+      });
   }
 
   static updateWinnerCount() {
     let winnersCount = document.querySelector(".main__winner_title");
     RaceService()
-        .getAllWinners()
-        .then((data) => {
-          if (winnersCount instanceof HTMLElement) {
-            winnersCount.textContent = `Winners: ${data.length}`;
-            let limitPerPage = 10
-            let pagesAtAll = Math.ceil(data.length / limitPerPage);
-            WinnerPage.pagesAtAll = pagesAtAll;                              
-          }
-        });
-
+      .getAllWinners()
+      .then((data) => {
+        if (winnersCount instanceof HTMLElement) {
+          winnersCount.textContent = `Winners: ${data.length}`;
+          let limitPerPage = 10;
+          let pagesAtAll = Math.ceil(data.length / limitPerPage);
+          WinnerPage.pagesAtAll = pagesAtAll;
+        }
+      });
   }
 
   static winnerSVG(item: IWinnersData) {
@@ -395,7 +383,4 @@ export class WinnerPage {
 
     return winnerItemConfig;
   }
-
-
-
 }

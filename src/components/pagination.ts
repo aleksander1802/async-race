@@ -1,8 +1,6 @@
 import { IGarage, ICar, ICurrentArray } from "../models/raceModel";
 import CreateCar from "./createCar";
-import {
-  createAllGarageItem  
-} from "./garage";
+import { createAllGarageItem } from "./garage";
 
 class Pagination {
   static currentPage = 1;
@@ -18,32 +16,30 @@ class Pagination {
       this.currentPage = currentPage;
     }
 
-    let item = Pagination.curArray(arrData)
+    let item = Pagination.curArray(arrData);
 
     CreateCar.currentCount = item.length;
-    
+
     Pagination.currentArray = item;
 
-    const items = createAllGarageItem(Pagination.currentArray); 
+    const items = createAllGarageItem(Pagination.currentArray);
 
     return items;
   }
 
-  static curArray = (arrData: IGarage ) => {
-
+  static curArray = (arrData: IGarage) => {
     const pagesCount = Math.ceil(arrData.length / this.itemsPerPage);
 
     if (pagesCount < this.currentPage) {
       this.currentPage = pagesCount;
-    } 
+    }
 
     const start = this.itemsPerPage * (this.currentPage - 1);
     const end = start + this.itemsPerPage;
-    const paginatedData = arrData.slice(start, end); 
+    const paginatedData = arrData.slice(start, end);
 
-    return paginatedData
-
-  }
+    return paginatedData;
+  };
 }
 
 export default Pagination;

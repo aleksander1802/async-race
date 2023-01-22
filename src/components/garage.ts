@@ -144,10 +144,9 @@ export const garageItemConfigBtns = () => {
   });
   itemResetBtn.textContent = `B`;
   itemResetBtn.disabled = true;
-  itemResetBtn.addEventListener('click', (e) => {
+  itemResetBtn.addEventListener("click", (e) => {
     ResetSingle.resetCurrentCar(e);
-  })
-  
+  });
 
   item.append(itemStartBtn);
   item.append(itemResetBtn);
@@ -156,7 +155,6 @@ export const garageItemConfigBtns = () => {
 };
 
 export function createGarageItem(item: ICar) {
-  
   const garageItem = garageItemConfig(item);
   const garageBtns = garageItemConfigBtns();
   const elem = element("li", { class: "garage__item", id: `${item.id}` });

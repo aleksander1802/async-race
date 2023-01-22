@@ -14,7 +14,7 @@ export const updateGarageCount = () => {
     .then((data) => {
       if (garageCount instanceof HTMLElement) {
         garageCount.textContent = `Garage: ${data.length}`;
-        let limitPerPage = 7
+        let limitPerPage = 7;
         let pagesAtAll = Math.ceil(data.length / limitPerPage);
         Pagination.pagesAtAll = pagesAtAll;
       }
@@ -24,10 +24,10 @@ export const updateGarageCount = () => {
         .then((data) => {
           if (winnersCount instanceof HTMLElement) {
             winnersCount.textContent = `Winners: ${data.length}`;
-            let limitPerPage = 10
+            let limitPerPage = 10;
             let pagesAtAll = Math.ceil(data.length / limitPerPage);
             WinnerPage.pagesAtAll = pagesAtAll;
-            WinnerPage.currentArray = data                  
+            WinnerPage.currentArray = data;
           }
         });
     });

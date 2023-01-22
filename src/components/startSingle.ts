@@ -10,7 +10,6 @@ import { IWinner } from "../models/raceModel";
 import { WinnerPage } from "../pages/winners/winnerPage";
 
 export class StartSingle {
-
   static start(e: MouseEvent) {
     const target = e.target;
 
@@ -27,8 +26,8 @@ export class StartSingle {
         const currentId = parentNode.getAttribute("id");
         const status = "started";
         const currentCar = parentNode.lastChild;
-        const firstChild = currentCar?.childNodes[1];        
-        
+        const firstChild = currentCar?.childNodes[1];
+
         let animationSpeed: number;
 
         if (currentId && status) {
@@ -38,11 +37,10 @@ export class StartSingle {
               animationSpeed = data.distance / data.velocity / 1000;
             })
             .then(() => {
-                
               if (firstChild instanceof HTMLElement) {
                 firstChild.style.animation = `${animationSpeed}s linear forwards swipeToRight`;
               }
-              
+
               return RaceService().EngineDamage(currentId);
             })
             .then((data) => {
@@ -66,12 +64,11 @@ export class StartSingle {
                   };
 
                   StartAndResetAll.winners.push(winner);
-                  Winner.winnerTextContent(winner)
-                  WinnerPage.createWinner(winner)
+                  Winner.winnerTextContent(winner);
+                  WinnerPage.createWinner(winner);
                   if (StartAndResetAll.winners.length >= 1) {
                     return;
                   }
-                  
                 }
               }
             });
