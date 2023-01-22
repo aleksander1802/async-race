@@ -24,12 +24,12 @@ export function garageItemConfig(item: ICar) {
           <div class="garage__item_config-img garage__item_config-img-change" id=${item.id}>
           <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
  width="150" height="70" viewBox="0 0 1080 740"
- preserveAspectRatio="xMidYMid meet">
+ preserveAspectRatio="xMidYMid meet" fill=${item.color}>
 <metadata>
 Created by potrace 1.15, written by Peter Selinger 2001-2017
 </metadata>
 <g transform="translate(0.000000,640.000000) scale(0.100000,-0.100000)"
-fill=${item.color} stroke="none">
+ stroke="none">
 <path d="M3565 5336 c-106 -30 -101 -26 -108 -111 -4 -42 -9 -80 -12 -85 -6
 -10 -246 -105 -590 -234 -448 -167 -1052 -415 -1173 -483 -78 -43 -193 -91
 -250 -104 -23 -5 -98 -14 -165 -19 -67 -6 -167 -19 -222 -30 -154 -31 -340

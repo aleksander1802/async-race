@@ -1,4 +1,5 @@
 import { useHttp } from "./http.hook";
+import { WinnerPage } from "../pages/winners/winnerPage";
 import {
   IGarage,  
   ICar,
@@ -15,8 +16,7 @@ const RaceService = () => {
   const _garage = "garage";
   const _engine = "engine";
   const _winners = 'winners'
-  
-  const _limit = 7;
+  const _page = WinnerPage.currentPage;  
 
   const getAllCars: () => Promise<IGarage> = async () => {
     const res = await request(`${_apiBase}${_garage}`);
@@ -80,10 +80,22 @@ const RaceService = () => {
     }    
   };
 
-  const getAllWinners: () => Promise<IWinnersData[]> = async () => {
-    const res: IWinnersData[] = await request(`${_apiBase}${_winners}`);    
+  const getAllWinners: (page?: number, limit?:number) => Promise<IWinnersData[]> = async (page?: number, limit?:number) => {
+
+    if (limit) {
+      const res: IWinnersData[] = await request(`${_apiBase}${_winners}?_limit=${limit}`);     
+      return res;
+    } else if (page) {
+      const res: IWinnersData[] = await request(`${_apiBase}${_winners}?_page=${page}`);     
+      return res;
+    } else if (page && limit) {
+      const res: IWinnersData[] = await request(`${_apiBase}${_winners}?_page=${page}&_limit=${limit}`);     
+      return res;
+    } else {
+      const res: IWinnersData[] = await request(`${_apiBase}${_winners}`);     
+      return res;
+    }  
     
-    return res;
   };
 
   const getWinner = async (id: string) => {
@@ -102,7 +114,7 @@ const RaceService = () => {
   };
 
   const createNewWinner = async (obj: string) => {
-    const res: ICar = await request(`${_apiBase}${_winners}`, "POST", obj);
+    const res: IWinnersData = await request(`${_apiBase}${_winners}`, "POST", obj);
     return res;
   };
 

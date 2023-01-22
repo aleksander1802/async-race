@@ -6,8 +6,6 @@ import RaceService from "../services/RaceService";
 
 export class ResetSingle {
 
-
-
     static resetCurrentCar(e: MouseEvent) {
         const target = e.target;
 

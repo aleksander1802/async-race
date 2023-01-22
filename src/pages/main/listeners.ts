@@ -85,7 +85,8 @@ export const Update = () => {
 export const selectCar = (e: MouseEvent) => {
   const currentRenameInput = document.querySelector(
     ".main__options_item-rename"
-  );
+  ); 
+  
   const target = e.target;
   if (target instanceof HTMLElement) {
     if (
@@ -172,14 +173,22 @@ export const removeCar = (e: MouseEvent) => {
           .deleteCar(currentID)
           .then(() => currentNode.remove())
           .then(() => updateGarageCount())
-        RaceService().deleteWinner(currentID)  
+
+          RaceService().getAllWinners().then(data => {
+              data.map(item => {
+                if(item.id === +currentID) {
+                  RaceService().deleteWinner(currentID)  
+                }
+              })
+          })
+          
       }
     }
   }
 };
 
 export const prevPage = () => {
-  const prevBtn = document.querySelector(".main__garage-change-prev");
+  const prevBtn = document.querySelector(".main__garage_change-prev");
 
   if (prevBtn) {
     prevBtn.addEventListener("click", () => {
@@ -189,8 +198,9 @@ export const prevPage = () => {
   }
 };
 
+
 export const nextPage = () => {
-  const nextBtn = document.querySelector(".main__garage-change-next");
+  const nextBtn = document.querySelector(".main__garage_change-next");
 
   if (nextBtn) {
     nextBtn.addEventListener("click", () => {
@@ -199,3 +209,4 @@ export const nextPage = () => {
     });
   }
 };
+

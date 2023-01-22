@@ -1,6 +1,7 @@
 .garage {
     &__items {
         list-style-type: none;
+        overflow: hidden;
     }
     &__item {
         margin-top: 15px;

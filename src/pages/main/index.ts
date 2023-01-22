@@ -5,18 +5,33 @@ import RaceService from "../../services/RaceService";
 import Pagination from "../../components/pagination";
 import { WinnerPage } from "../../pages/winners/winnerPage";
 
-export const updateGarageCount = () => {  
-  let garageCount = document.querySelector('.main__garage_title');
-  RaceService().getAllCars().then(data => {
-    if (garageCount instanceof HTMLElement) {
-      garageCount.textContent = ` Garage: ${data.length}`
-        
-        let pagesAtAll = Math.ceil(data.length / 7);        
+export const updateGarageCount = () => {
+  let garageCount = document.querySelector(".main__garage_title");
+  let winnersCount = document.querySelector(".main__winner_title");
+
+  RaceService()
+    .getAllCars()
+    .then((data) => {
+      if (garageCount instanceof HTMLElement) {
+        garageCount.textContent = `Garage: ${data.length}`;
+        let limitPerPage = 7
+        let pagesAtAll = Math.ceil(data.length / limitPerPage);
         Pagination.pagesAtAll = pagesAtAll;
-        
-    }    
-  });
-}
+      }
+
+      RaceService()
+        .getAllWinners()
+        .then((data) => {
+          if (winnersCount instanceof HTMLElement) {
+            winnersCount.textContent = `Winners: ${data.length}`;
+            let limitPerPage = 10
+            let pagesAtAll = Math.ceil(data.length / limitPerPage);
+            WinnerPage.pagesAtAll = pagesAtAll;
+            WinnerPage.currentArray = data                  
+          }
+        });
+    });
+};
 class MainPage extends Page {
   constructor(id: string) {
     super(id);
@@ -37,7 +52,7 @@ class MainPage extends Page {
 
   protected createMain() {
     const main = element("main", { class: "main" });
-    const winnerPage = WinnerPage.createWinnerPage()
+    const winnerPage = WinnerPage.createWinnerPage();
 
     main.append(this.createOptions());
     main.append(this.createGarage());
@@ -72,23 +87,23 @@ class MainPage extends Page {
   }
 
   protected createGarage() {
-
     const garage = element("div", { class: "main__garage" });
 
-    const garageWrapper = element("div", { class: "garage__wrapper" }); 
-    let currentPage = Pagination.currentPage;   
+    const garageWrapper = element("div", { class: "garage__wrapper" });
+    let currentPage = Pagination.currentPage;
     let count = 0;
     garage.innerHTML = `
     <h2 class="main__garage_title">Garage ${count}</h2>
     <div class="main__garage_title-winner"></div>
     <div class="main__garage_page">Page 1</div>    
     `;
-    garage.append(garageWrapper); 
+    garage.append(garageWrapper);
 
-      RaceService()
-      .getAllCars().then((data) => Pagination.renderItems(data, currentPage))
-      .then(data => garageWrapper.append(data))
-      .then(() => updateGarageCount())
+    RaceService()
+      .getAllCars()
+      .then((data) => Pagination.renderItems(data, currentPage))
+      .then((data) => garageWrapper.append(data))
+      .then(() => updateGarageCount());
 
     return garage;
   }
@@ -97,10 +112,10 @@ class MainPage extends Page {
     const change = element("div", { class: "main__garage_change" });
 
     change.innerHTML = `
-      <button class="button main__garage-change-prev">Previous</button>
-      <button class="button main__garage-change-next">Next</button>    
-    `
-    return change
+      <button class="button main__garage_change-prev">Previous</button>
+      <button class="button main__garage_change-next">Next</button>   
+    `;
+    return change;
   }
 
   protected createFooter() {

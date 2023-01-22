@@ -1,9 +1,16 @@
-
+import { updateGarageCount } from './../main/index';
 import { element } from "../../services/element";
 import { IWinner, IWinnersData, IUpdateWinner } from "../../models/raceModel";
 import RaceService from "../../services/RaceService";
 
 export class WinnerPage {
+
+  static numberWinner = 0;
+  static currentPage = 1;
+  static pagesAtAll: number;
+
+  static currentArray: IWinnersData[] 
+
   static hideWinnerPage() {
     const winnerPage = document.querySelector(".main__winner");
     const mainPage = document.querySelector(".main");
@@ -47,12 +54,105 @@ export class WinnerPage {
     winner.append(winnerWrapper);
 
     RaceService()
-      .getAllWinners()
+      .getAllWinners(WinnerPage.currentPage, 10)
       .then((data) => {
         return WinnerPage.createAllWinnersItem(data);
       })
-      .then((data) => winnerWrapper.append(data));
+      .then((data) => winnerWrapper.append(data))
+      .then(() => winner.append(WinnerPage.pageWinnerChange()))
     return winner;
+  }
+
+  static pageWinnerChange() {
+    const change = element("div", { class: "main__winner_change" });
+    const prev = element("button", { class: "button main__winner_change-prev" });
+    prev.textContent = `Previous`
+    const next = element("button", { class: "button main__winner_change-next" });
+    next.textContent = `Next`
+
+    prev.addEventListener('click', () => {
+      WinnerPage.prevWinnerPage()      
+    })
+
+    next.addEventListener('click', () => {      
+      WinnerPage.nextWinnerPage()    
+      
+    })
+
+
+    change.append(prev);
+    change.append(next)
+
+    return change
+  }
+
+  static nextWinnerPage() {
+        const itemPerPage = 10;
+        const currentPage = WinnerPage.currentPage;
+        const pagesAtAll = WinnerPage.pagesAtAll;
+        const winnerPageCount = document.querySelector('.main__winner_page')
+        const currentNode = document.querySelector(".winner__items_wrapper"); 
+        
+        if (currentPage === pagesAtAll) {
+            return
+        } else {
+          WinnerPage.currentPage += 1
+          WinnerPage.numberWinner = 0
+
+          if (winnerPageCount) {
+            winnerPageCount.textContent = `Page ${WinnerPage.currentPage}`
+          }
+          RaceService().getAllWinners(WinnerPage.currentPage).then(data => {
+            WinnerPage.currentArray = data
+            console.log(WinnerPage.currentArray);
+            
+            if (currentNode) {
+              currentNode.innerHTML = '';
+             const newList =  WinnerPage.createAllWinnersItem(data)
+             currentNode.append(newList)
+            }
+
+            
+
+          });
+          
+        }
+
+          
+    
+  }
+
+ 
+
+  static prevWinnerPage() {
+    
+    const currentNode = document.querySelector(".winner__items_wrapper"); 
+    const winnerPageCount = document.querySelector('.main__winner_page')
+    if (WinnerPage.currentPage === 1) {
+      return
+    } else {
+      WinnerPage.currentPage -= 1
+      WinnerPage.numberWinner = 0
+
+      
+      if (winnerPageCount) {
+            winnerPageCount.textContent = `Page ${WinnerPage.currentPage}`
+          }
+      RaceService().getAllWinners(WinnerPage.currentPage).then(data => {
+        WinnerPage.currentArray = data
+        console.log(WinnerPage.currentArray);
+        
+        if (currentNode) {
+          currentNode.innerHTML = '';
+         const newList =  WinnerPage.createAllWinnersItem(data)
+         currentNode.append(newList)
+        }
+
+      })
+      
+    }
+    
+    
   }
 
   static createAllWinnersItem = (array: IWinnersData[]) => {
@@ -78,7 +178,10 @@ export class WinnerPage {
       .getCar(stringID)
       .then((data) => {
         item.innerHTML = `
-            <div class="winner__wrapper_item-id">${data.id}</div> 
+            <div class="winner__wrapper_item-id">${              
+              WinnerPage.numberWinner += 1
+              
+               }</div> 
         `;
         item.append(SVG);
 
@@ -116,7 +219,24 @@ export class WinnerPage {
               };
           
               const json = JSON.stringify(newWinner); 
-              RaceService().createNewWinner(json).then(data => console.log(data))
+              
+
+              RaceService().createNewWinner(json).then(data => {
+                
+
+                const listItem = WinnerPage.createWinnerItem(data)
+
+                console.log(WinnerPage.currentPage, WinnerPage.pagesAtAll, WinnerPage.currentArray.length);
+                
+                if (WinnerPage.currentPage === WinnerPage.pagesAtAll && WinnerPage.currentArray.length < 10) {
+
+                   const currentNode = document.querySelector('.winner__wrapper')
+                   if (currentNode) {
+                    currentNode.append(listItem)
+                   }
+                }                
+                
+              }).then(() => WinnerPage.updateWinnerCount())
 
         } else {
 
@@ -133,21 +253,28 @@ export class WinnerPage {
                   };
               
                   const json = JSON.stringify(newWinner);
-                  RaceService().updateWinner(json, currentId)
-
-                
+                  RaceService().updateWinner(json, currentId)                
             }
-
-            
-            
-            
             
         }
 
-        
-
     } )
     
+  }
+
+  static updateWinnerCount() {
+    let winnersCount = document.querySelector(".main__winner_title");
+    RaceService()
+        .getAllWinners()
+        .then((data) => {
+          if (winnersCount instanceof HTMLElement) {
+            winnersCount.textContent = `Winners: ${data.length}`;
+            let limitPerPage = 10
+            let pagesAtAll = Math.ceil(data.length / limitPerPage);
+            WinnerPage.pagesAtAll = pagesAtAll;                              
+          }
+        });
+
   }
 
   static winnerSVG(item: IWinnersData) {
@@ -162,12 +289,12 @@ export class WinnerPage {
         winnerItemConfig.innerHTML = ` 
             <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
    width="100" height="50" viewBox="0 0 1080 740"
-   preserveAspectRatio="xMidYMid meet">
+   preserveAspectRatio="xMidYMid meet" fill=${data.color}>
   <metadata>
   Created by potrace 1.15, written by Peter Selinger 2001-2017
   </metadata>
   <g transform="translate(0.000000,640.000000) scale(0.100000,-0.100000)"
-  fill=${data.color} stroke="none">
+   stroke="none">
   <path d="M3565 5336 c-106 -30 -101 -26 -108 -111 -4 -42 -9 -80 -12 -85 -6
   -10 -246 -105 -590 -234 -448 -167 -1052 -415 -1173 -483 -78 -43 -193 -91
   -250 -104 -23 -5 -98 -14 -165 -19 -67 -6 -167 -19 -222 -30 -154 -31 -340
@@ -268,4 +395,7 @@ export class WinnerPage {
 
     return winnerItemConfig;
   }
+
+
+
 }

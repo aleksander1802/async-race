@@ -9,7 +9,7 @@ import {
   Reset,
   Generate,
   prevPage,
-  nextPage,
+  nextPage  
 } from "../../pages/main/listeners";
 class App {
   private container: HTMLElement = document.body;
@@ -41,6 +41,7 @@ class App {
     Generate();
     prevPage();
     nextPage();
+    
   }
 
   private enableRouteChangeReload() {

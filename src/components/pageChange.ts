@@ -20,7 +20,7 @@ export class PagesChange {
         
         console.log(currentPage, pagesAtAll);
         
-        if (currentCarCount < itemPerPage && currentPage === pagesAtAll) {
+        if (currentCarCount < itemPerPage || currentPage === pagesAtAll) {
           return;
         } else {    
           if (currentNode) {

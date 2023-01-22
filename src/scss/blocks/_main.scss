@@ -76,13 +76,13 @@
             }
         }
         &_change {
-            width: 70%;
+            position: relative;            
             margin: 0 auto;
             margin-top: 20px;
             display: flex;
             flex-direction: row;
             justify-content: space-between;
-            flex-wrap: wrap;
+            flex-wrap: wrap;    
         }
     }
 
@@ -91,11 +91,20 @@
         padding: 20px;
         top: 0;
         left: 0;
+        z-index: 20;
+        background-color: lightgray;
+        width: 70%;
         &_title {
             font-family: 'Metal Mania', cursive;               
         }    
         &_page {
             margin-bottom: 20px;
-        }    
+        } 
+        &_change {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 20px;
+            justify-content: space-between;
+        }   
     }
 }
