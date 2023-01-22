@@ -67,6 +67,7 @@ body {
 
 .main {
   padding: 20px;
+  position: relative;
 }
 .main__options {
   width: 50%;
@@ -170,6 +171,18 @@ body {
           justify-content: space-between;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
+}
+.main__winner {
+  position: absolute;
+  padding: 20px;
+  top: 0;
+  left: 0;
+}
+.main__winner_title {
+  font-family: "Metal Mania", cursive;
+}
+.main__winner_page {
+  margin-bottom: 20px;
 }
 
 .footer {
@@ -285,6 +298,40 @@ body {
   content: url("./assets/images/finish.svg");
   position: absolute;
   left: calc(100vw - 250px);
+}
+
+.winner__items {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 2fr;
+  margin: 0;
+  width: auto;
+}
+.winner__button {
+  background-color: #fff;
+  color: black;
+  width: auto;
+}
+.winner__wrapper {
+  list-style-type: none;
+}
+.winner__wrapper_item {
+  display: grid;
+  margin: 0;
+  grid-template-columns: 1fr 1fr 1fr 1fr 2fr;
+  width: auto;
+  justify-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border: 1px solid black;
+}
+.winner__wrapper_item-svg {
+  min-width: 50px;
+  min-height: 30px;
+}
+.winner__wrapper_item-svg svg {
+  width: 100%;
+  height: auto;
 }
 
 .mistake {

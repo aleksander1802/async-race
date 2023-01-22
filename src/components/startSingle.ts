@@ -7,6 +7,7 @@ import { element } from "../services/element";
 import { StartAndResetAll } from "./startAll";
 import { Winner } from "./winner";
 import { IWinner } from "../models/raceModel";
+import { WinnerPage } from "../pages/winners/winnerPage";
 
 export class StartSingle {
 
@@ -61,12 +62,12 @@ export class StartSingle {
                 if (StartAndResetAll.winners.length === 0) {
                   let winner: IWinner = {
                     currentId: `${currentId}`,
-                    animationSpeed: animationSpeed,
+                    animationSpeed: +animationSpeed.toFixed(2),
                   };
 
                   StartAndResetAll.winners.push(winner);
                   Winner.winnerTextContent(winner)
-                  
+                  WinnerPage.createWinner(winner)
                   if (StartAndResetAll.winners.length >= 1) {
                     return;
                   }

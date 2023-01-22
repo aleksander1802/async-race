@@ -3,13 +3,13 @@ import { element } from "../../services/element";
 import { createAllGarageItem } from "../../components/garage";
 import RaceService from "../../services/RaceService";
 import Pagination from "../../components/pagination";
-// import { Config } from "../../pages/main/listeners";
+import { WinnerPage } from "../../pages/winners/winnerPage";
 
 export const updateGarageCount = () => {  
   let garageCount = document.querySelector('.main__garage_title');
   RaceService().getAllCars().then(data => {
     if (garageCount instanceof HTMLElement) {
-      garageCount.textContent = ` Garage (${data.length})`
+      garageCount.textContent = ` Garage: ${data.length}`
         
         let pagesAtAll = Math.ceil(data.length / 7);        
         Pagination.pagesAtAll = pagesAtAll;
@@ -37,9 +37,13 @@ class MainPage extends Page {
 
   protected createMain() {
     const main = element("main", { class: "main" });
+    const winnerPage = WinnerPage.createWinnerPage()
+
     main.append(this.createOptions());
     main.append(this.createGarage());
     main.append(this.pageChange());
+    main.append(winnerPage);
+
     return main;
   }
 
@@ -68,7 +72,9 @@ class MainPage extends Page {
   }
 
   protected createGarage() {
+
     const garage = element("div", { class: "main__garage" });
+
     const garageWrapper = element("div", { class: "garage__wrapper" }); 
     let currentPage = Pagination.currentPage;   
     let count = 0;

@@ -1,10 +1,11 @@
 import { useHttp } from "./http.hook";
 import {
-  IGarage,
-  iCreateNewCar,
+  IGarage,  
   ICar,
   IEngineStartOrStop,
   IEngineToDriveMode,
+  IWinnersData,
+  IUpdateWinner
 } from "../models/raceModel";
 
 const RaceService = () => {
@@ -13,8 +14,8 @@ const RaceService = () => {
   const _apiBase = "http://127.0.0.1:3000/";
   const _garage = "garage";
   const _engine = "engine";
-
-  let page = 1;
+  const _winners = 'winners'
+  
   const _limit = 7;
 
   const getAllCars: () => Promise<IGarage> = async () => {
@@ -47,7 +48,8 @@ const RaceService = () => {
     }
   };
 
-  const getCar = async (id: string) => {
+  const getCar = async (id: string) => {    
+    
     try {
       const res: ICar = await request(`${_apiBase}${_garage}/${id}`, "GET");
       return res
@@ -65,7 +67,6 @@ const RaceService = () => {
   };
 
   const EngineDamage = async (id: string) => {
-
     try {
       const res: IEngineToDriveMode | number = await request(
         `${_apiBase}${_engine}?id=${id}&status=drive`,
@@ -76,9 +77,48 @@ const RaceService = () => {
       if (error instanceof Error) {
         console.log(`Слишком быстро останавливаешь двигатель, лови ошибку и описание: ${error.message}`);        
       }
-    }
+    }    
+  };
+
+  const getAllWinners: () => Promise<IWinnersData[]> = async () => {
+    const res: IWinnersData[] = await request(`${_apiBase}${_winners}`);    
+    
+    return res;
+  };
+
+  const getWinner = async (id: string) => {
+
+    try {
+      const res: IWinnersData = await request(`${_apiBase}${_winners}/${id}`); 
+    
+      return res;
+    } catch (error) {
+      let er = 'error'
+      if (error instanceof Error) {
+        console.log(`Такого победителя нет: ${error.message}`);        
+      }
+      return er
+    }    
+  };
+
+  const createNewWinner = async (obj: string) => {
+    const res: ICar = await request(`${_apiBase}${_winners}`, "POST", obj);
+    return res;
+  };
+
+  const updateWinner = async (obj: string, id: number) => {
+    const res: IWinnersData = await request(`${_apiBase}${_winners}/${id}`, "PUT", obj);
+
+    return res;
+  };
+
+  const deleteWinner = async (id: string) => {
+
+    await request(`${_apiBase}${_winners}/${id}`, "DELETE");
     
   };
+
+
 
   return {
     getAllCars,
@@ -87,7 +127,12 @@ const RaceService = () => {
     ReUpdateCar,
     StartOrStopEngine,
     EngineDamage,
-    getCar
+    getCar,
+    getAllWinners,
+    getWinner,
+    createNewWinner,
+    updateWinner,
+    deleteWinner
   };
 };
 

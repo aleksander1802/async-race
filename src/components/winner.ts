@@ -5,9 +5,7 @@ import RaceService from "../services/RaceService";
 
 
 export class Winner {
-
-
-
+    
     static winnerTextContent(obj: IWinner) {
         const mainGarageTitleWinner = document.querySelector('.main__garage_title-winner');
 

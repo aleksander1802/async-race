@@ -1,0 +1,40 @@
+
+.winner {
+
+    &__items {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 2fr;
+        margin: 0;
+        width: auto;
+    }
+
+    &__button {
+        background-color: #fff;
+        color: black;     
+        width: auto;   
+    }
+
+    &__wrapper {
+        list-style-type: none;
+        &_item {
+            display: grid;
+            margin: 0;
+            grid-template-columns: 1fr 1fr 1fr 1fr 2fr;
+            width: auto;
+            justify-items: center;
+            align-items: center;
+            border: 1px solid black;
+            &-svg {
+                min-width: 50px;
+                min-height: 30px;
+                svg {
+                    width: 100%;
+                    height: auto;
+                }
+            }
+        }
+    }
+   
+
+    
+}

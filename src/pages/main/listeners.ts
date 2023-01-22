@@ -7,6 +7,7 @@ import UpdateCar from "../../components/updateCar";
 import { updateGarageCount } from "../../pages/main/index";
 import { StartAndResetAll } from '../../components/startAll';
 import { Winner } from '../../components/winner';
+import { WinnerPage } from '../../pages/winners/winnerPage';
 
 
 export const toGarage = () => {
@@ -14,7 +15,7 @@ export const toGarage = () => {
 
   if (garage) {
     garage.addEventListener("click", () => {
-      console.log("click");
+      WinnerPage.hideWinnerPage()
     });
   }
 };
@@ -23,7 +24,7 @@ export const toWinners = () => {
   const winners = document.querySelector(".header__buttons_winners");
   if (winners) {
     winners.addEventListener("click", () => {
-      console.log("click");
+      WinnerPage.hideMainPage()
     });
   }
 };
@@ -170,7 +171,8 @@ export const removeCar = (e: MouseEvent) => {
         RaceService()
           .deleteCar(currentID)
           .then(() => currentNode.remove())
-          .then(() => updateGarageCount());
+          .then(() => updateGarageCount())
+        RaceService().deleteWinner(currentID)  
       }
     }
   }
