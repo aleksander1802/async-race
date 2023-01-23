@@ -34,7 +34,7 @@ export class StartSingle {
           RaceService()
             .StartOrStopEngine(currentId, status)
             .then((data) => {
-              animationSpeed = (data.distance / data.velocity) / 1000;
+              animationSpeed = data.distance / data.velocity / 1000;
             })
             .then(() => {
               if (firstChild instanceof HTMLElement) {
@@ -60,7 +60,7 @@ export class StartSingle {
                 if (StartAndResetAll.winners.length === 0) {
                   let winner: IWinner = {
                     currentId: `${currentId}`,
-                    animationSpeed: +animationSpeed,
+                    animationSpeed: +animationSpeed.toFixed(2),
                   };
 
                   StartAndResetAll.winners.push(winner);

@@ -7,7 +7,7 @@ class Pagination {
   static itemsPerPage = 7;
   static pagesAtAll: number;
   static cars: IGarage;
-  static currentArray: ICurrentArray;
+  static currentArray: ICurrentArray;  
 
   static renderItems(arrData: IGarage, currentPage?: number) {
     this.cars = arrData;

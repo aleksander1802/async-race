@@ -132,7 +132,7 @@ l-15 -73 3006 7 c1653 4 3007 8 3009 9 1 1 -8 37 -20 81 -19 67 -22 105 -22
 export const garageItemConfigBtns = () => {
   const item = element("div", { class: "garage__item_config-btns" });
   const itemStartBtn = element("button", {
-    class: "button garage__item_config-startBtn",
+    class: "button mainPageButtonChange garage__item_config-startBtn",
   });
   itemStartBtn.textContent = `A`;
   itemStartBtn.addEventListener("click", (e) => {
@@ -140,7 +140,7 @@ export const garageItemConfigBtns = () => {
   });
 
   const itemResetBtn = element("button", {
-    class: "button garage__item_config-resetBtn",
+    class: "button mainPageButtonChange garage__item_config-resetBtn",
   });
   itemResetBtn.textContent = `B`;
   itemResetBtn.disabled = true;
@@ -162,7 +162,7 @@ export function createGarageItem(item: ICar) {
   const garageItemWrapper = element("div", { class: "garage__item_wrapper" });
 
   const selectBtn = element("button", {
-    class: "button button garage__item_wrapper-selectBtn",
+    class: "button mainPageButtonChange garage__item_wrapper-selectBtn",
   });
   selectBtn.textContent = `Select`;
   selectBtn.addEventListener("click", (e) => {
@@ -170,7 +170,7 @@ export function createGarageItem(item: ICar) {
   });
 
   const removeBtn = element("button", {
-    class: "button button garage__item_wrapper-removeBtn",
+    class: "button mainPageButtonChange garage__item_wrapper-removeBtn",
   });
   removeBtn.textContent = "Remove";
 

@@ -17,9 +17,26 @@ export class WinnerPage {
     const winnerPage = document.querySelector(".main__winner");
     const mainPage = document.querySelector(".main");
     const buttons = document.querySelectorAll('.winner__button');
+    const buttonWinner = document.querySelectorAll('.buttonChangeTransition');
+    const mainPageButtonChange = document.querySelectorAll('.mainPageButtonChange');
+
+    mainPageButtonChange.forEach(item => {
+      if (item instanceof HTMLButtonElement) {
+        item.style.transition = 'all .6s linear 0s'
+      }
+    })
+
+
     if (winnerPage instanceof HTMLElement && mainPage instanceof HTMLElement) {
       mainPage.style.visibility = "visible";
       winnerPage.style.visibility = "hidden";
+
+      buttonWinner.forEach(item => {
+        if (item instanceof HTMLButtonElement) {
+          item.style.transition = 'all .0s linear 0s'
+        }
+      })
+      
       buttons.forEach(item => {
         if (item instanceof HTMLButtonElement) {
           item.style.transition = 'all .0s linear 0s'
@@ -32,9 +49,25 @@ export class WinnerPage {
     const winnerPage = document.querySelector(".main__winner");
     const mainPage = document.querySelector(".main");
     const buttons = document.querySelectorAll('.winner__button');
+    const buttonWinner = document.querySelectorAll('.buttonChangeTransition');
+    const mainPageButtonChange = document.querySelectorAll('.mainPageButtonChange');
+
+    mainPageButtonChange.forEach(item => {
+      if (item instanceof HTMLButtonElement) {
+        item.style.transition = 'all .0s linear 0s'
+      }
+    })
+    
     if (mainPage instanceof HTMLElement && winnerPage instanceof HTMLElement) {
       winnerPage.style.visibility = "visible";
       mainPage.style.visibility = "hidden";
+
+      buttonWinner.forEach(item => {
+        if (item instanceof HTMLButtonElement) {
+          item.style.transition = 'all .6s linear 0s'
+        }
+      })
+      
       buttons.forEach(item => {
         if (item instanceof HTMLButtonElement) {
           item.style.transition = 'all .6s linear 0s'
@@ -97,12 +130,12 @@ export class WinnerPage {
   static pageWinnerChange() {
     const change = element("div", { class: "main__winner_change" });
     const prev = element("button", {
-      class: "button main__winner_change-prev",
+      class: "button buttonChangeTransition main__winner_change-prev",
     });
     prev.textContent = `Previous`;
     
     const next = element("button", {
-      class: "button main__winner_change-next",
+      class: "button buttonChangeTransition main__winner_change-next",
     });
     next.textContent = `Next`;
 
