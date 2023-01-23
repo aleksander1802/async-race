@@ -212,3 +212,56 @@ export const nextPage = () => {
     });
   }
 };
+
+
+export const sortByWins = () => {
+  const winnersList = document.querySelector('.winner__wrapper');
+  WinnerPage.numberWinner = 0;
+  
+  if (WinnerPage.sortWins === 'asc') {
+    WinnerPage.sortWins = 'desc'
+    const newArray = [...WinnerPage.currentArray].sort((a, b) => a.wins - b.wins)
+    const newItemsList = WinnerPage.createAllWinnersItem(newArray)
+    if (winnersList && winnersList instanceof HTMLElement) {
+      winnersList.innerHTML = ''
+      winnersList.append(newItemsList)
+    }
+  } 
+  else {
+    WinnerPage.sortWins = 'asc'
+    const newArray = [...WinnerPage.currentArray].sort((a, b) => b.wins - a.wins)
+    const newItemsList = WinnerPage.createAllWinnersItem(newArray)
+    if (winnersList && winnersList instanceof HTMLElement) {
+      winnersList.innerHTML = ''
+      winnersList.append(newItemsList)
+    }
+  }
+
+}
+
+export const sortByTime = () => {
+
+  const winnersList = document.querySelector('.winner__wrapper');
+  WinnerPage.numberWinner = 0;
+  
+  if (WinnerPage.sortWins === 'asc') {
+    WinnerPage.sortWins = 'desc'
+    const newArray = [...WinnerPage.currentArray].sort((a, b) => a.time - b.time)
+    const newItemsList = WinnerPage.createAllWinnersItem(newArray)
+    if (winnersList && winnersList instanceof HTMLElement) {
+      winnersList.innerHTML = ''
+      winnersList.append(newItemsList)
+    }
+  } 
+  else {
+    WinnerPage.sortWins = 'asc'
+    const newArray = [...WinnerPage.currentArray].sort((a, b) => b.time - a.time)
+    const newItemsList = WinnerPage.createAllWinnersItem(newArray)
+    if (winnersList && winnersList instanceof HTMLElement) {
+      winnersList.innerHTML = ''
+      winnersList.append(newItemsList)
+    }
+  }
+  
+  
+}

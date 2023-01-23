@@ -2,11 +2,14 @@ import { updateGarageCount } from "./../main/index";
 import { element } from "../../services/element";
 import { IWinner, IWinnersData, IUpdateWinner } from "../../models/raceModel";
 import RaceService from "../../services/RaceService";
+import { sortByTime, sortByWins } from "../../pages/main/listeners";
 
 export class WinnerPage {
   static numberWinner = 0;
   static currentPage = 1;
   static pagesAtAll: number;
+  static sortWins: string = 'asc';
+  static sortTime: string = 'asc';
 
   static currentArray: IWinnersData[];
 
@@ -31,6 +34,22 @@ export class WinnerPage {
 
   static createWinnerPage() {
     const winner = element("div", { class: "main__winner" });
+    const winnersBtnItems = element('div', {class: "winner__items"})
+
+    const winsBtn = element('button', {class: "button winner__button winner__items_wins"})
+    winsBtn.textContent = `Wins`;
+    const timeBtn = element('button', {class: "button winner__button winner__items_time"});
+    timeBtn.textContent = `Best time (seconds)`;
+
+    winsBtn.addEventListener('click', () => {
+      sortByWins()
+    })
+    timeBtn.addEventListener('click', () => {
+      sortByTime()
+    })
+
+
+
     if (winner instanceof HTMLElement) {
       winner.style.visibility = "hidden";
     }
@@ -40,15 +59,17 @@ export class WinnerPage {
 
     winner.innerHTML = `
         <h2 class="main__winner_title">Winners: ${count}</h2>        
-        <div class="main__winner_page">Page 1</div>
-        <div class="winner__items">
-        <button class="button winner__button winner__items_number">Number</button>
+        <div class="main__winner_page">Page 1</div>         
+        `;
+
+    winnersBtnItems.innerHTML = `
+    <button class="button winner__button winner__items_number">Number</button>
         <button class="button winner__button winner__items_car">Car</button>
         <button class="button winner__button winner__items_name">Name</button>
-        <button class="button winner__button winner__items_wins">Wins</button>
-        <button class="button winner__button winner__items_time">Best time (seconds)</button>        
-        </div> 
-        `;
+    `   
+    winnersBtnItems.append(winsBtn) 
+    winnersBtnItems.append(timeBtn) 
+    winner.append(winnersBtnItems)
 
     winner.append(winnerWrapper);
 
@@ -250,11 +271,10 @@ export class WinnerPage {
             const json = JSON.stringify(newWinner);
             RaceService().updateWinner(json, currentId).then(() => {
               RaceService().getAllWinners(WinnerPage.currentPage).then(data => {
+                WinnerPage.currentArray = data
                 const newListItem = WinnerPage.createAllWinnersItem(data)
-                if (wrapper && wrapper instanceof HTMLElement) {
-                  
-                  wrapper.innerHTML = '';
-                  
+                if (wrapper && wrapper instanceof HTMLElement) {                  
+                  wrapper.innerHTML = '';                  
                   wrapper.append(newListItem)
                 }
               })
