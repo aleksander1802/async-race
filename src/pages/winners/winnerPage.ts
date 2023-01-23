@@ -233,11 +233,14 @@ export class WinnerPage {
             })
             .then(() => WinnerPage.updateWinnerCount());
         } else {
+          WinnerPage.numberWinner = 0;
           if (data instanceof Object) {
             const currentTime = obj.animationSpeed;
             const dataTime = data.time;
             const newTime = Math.min(currentTime, dataTime);
             const currentId = data.id;
+            
+            const wrapper = document.querySelector('.winner__wrapper');
 
             const newWinner: IUpdateWinner = {
               wins: (data.wins += 1),
@@ -245,7 +248,22 @@ export class WinnerPage {
             };
 
             const json = JSON.stringify(newWinner);
-            RaceService().updateWinner(json, currentId);
+            RaceService().updateWinner(json, currentId).then(() => {
+              RaceService().getAllWinners(WinnerPage.currentPage).then(data => {
+                const newListItem = WinnerPage.createAllWinnersItem(data)
+                if (wrapper && wrapper instanceof HTMLElement) {
+                  
+                  wrapper.innerHTML = '';
+                  
+                  wrapper.append(newListItem)
+                }
+              })
+
+            })
+
+
+            
+              
           }
         }
       });
