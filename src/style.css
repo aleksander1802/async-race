@@ -684,6 +684,8 @@ body {
       -ms-flex-align: center;
           align-items: center;
   border: 1px solid black;
+  background-color: black;
+  color: white;
 }
 .winner__wrapper_item-svg {
   min-width: 50px;
