@@ -31,7 +31,12 @@
                     width: 100%;
                     height: auto;
                 }
-            }
+            } 
+            &-name {
+                width: 110px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }           
         }
     }
    

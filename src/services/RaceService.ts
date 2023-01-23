@@ -75,7 +75,7 @@ const RaceService = () => {
       return res
     } catch (error ) {
       if (error instanceof Error) {
-        console.log(`Слишком быстро останавливаешь двигатель, лови ошибку и описание: ${error.message}`);        
+        console.log(`Ошибка и описание: ${error.message}`);        
       }
     }    
   };

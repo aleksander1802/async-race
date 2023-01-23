@@ -5,7 +5,7 @@ import RaceService from "../services/RaceService";
 
 class UpdateCar {
   static inputReNameValue: string = "";
-  static inputReColorValue: string = "#000000";
+  static inputReColorValue: string = "#5900ff";
   static currentID: string = "";
   static currentNodeChild: HTMLElement | null;
   static currentSVGNodeElement: SVGElement | null;
@@ -22,10 +22,10 @@ class UpdateCar {
       UpdateCar.inputReNameValue.length === 0 ||
       UpdateCar.currentID.length === 0
     ) {
-      nameInputBtn?.classList.add("mistake");
+      nameInputBtn?.classList.add("mistake2");
       return;
     } else {
-      nameInputBtn?.classList.remove("mistake");
+      nameInputBtn?.classList.remove("mistake2");
     }
 
     if (UpdateCar.currentNodeChild) {

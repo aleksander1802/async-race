@@ -16,19 +16,30 @@ export class WinnerPage {
   static hideWinnerPage() {
     const winnerPage = document.querySelector(".main__winner");
     const mainPage = document.querySelector(".main");
+    const buttons = document.querySelectorAll('.winner__button');
     if (winnerPage instanceof HTMLElement && mainPage instanceof HTMLElement) {
       mainPage.style.visibility = "visible";
       winnerPage.style.visibility = "hidden";
+      buttons.forEach(item => {
+        if (item instanceof HTMLButtonElement) {
+          item.style.transition = 'all .0s linear 0s'
+        }
+      })
     }
   }
 
   static hideMainPage() {
     const winnerPage = document.querySelector(".main__winner");
     const mainPage = document.querySelector(".main");
-
+    const buttons = document.querySelectorAll('.winner__button');
     if (mainPage instanceof HTMLElement && winnerPage instanceof HTMLElement) {
       winnerPage.style.visibility = "visible";
       mainPage.style.visibility = "hidden";
+      buttons.forEach(item => {
+        if (item instanceof HTMLButtonElement) {
+          item.style.transition = 'all .6s linear 0s'
+        }
+      })
     }
   }
 
@@ -89,6 +100,7 @@ export class WinnerPage {
       class: "button main__winner_change-prev",
     });
     prev.textContent = `Previous`;
+    
     const next = element("button", {
       class: "button main__winner_change-next",
     });
@@ -152,8 +164,7 @@ export class WinnerPage {
       RaceService()
         .getAllWinners(WinnerPage.currentPage)
         .then((data) => {
-          WinnerPage.currentArray = data;
-          console.log(WinnerPage.currentArray);
+          WinnerPage.currentArray = data;          
 
           if (currentNode) {
             currentNode.innerHTML = "";
@@ -252,7 +263,13 @@ export class WinnerPage {
                 }
               }
             })
-            .then(() => WinnerPage.updateWinnerCount());
+            .then(() =>  {
+              WinnerPage.updateWinnerCount()
+              RaceService().getAllWinners(WinnerPage.currentPage).then(data => {
+                WinnerPage.currentArray = data
+              })              
+            }            
+            );
         } else {
           WinnerPage.numberWinner = 0;
           if (data instanceof Object) {

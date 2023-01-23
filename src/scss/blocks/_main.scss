@@ -1,6 +1,7 @@
 .main {
     padding: 20px;
     position: relative;
+    overflow: hidden;
     &__options {
         width: 50%;
         display: flex;
@@ -10,7 +11,6 @@
             display: grid;
             grid-template-columns: 52% 15% auto;
             column-gap: 15px;
-
             &-name,
             &-rename {
                 border: 2px solid #7f8c8d;
@@ -59,20 +59,26 @@
     }
     &__garage {
         margin-top: 10px;
+        &_page {
+            margin-bottom: 10px;
+            font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+        }
         &_title {
             position: relative;
             font-size: 40px;
             text-align: center;
             font-family: 'Metal Mania', cursive;
+            text-shadow: 0px -2px 4px #fbff00, 0px -2px 10px #fbff04, 0px -10px 20px #eeff00, 0px -20px 40px #d2e00b;
             &-winner {      
                 position: absolute;
                 width: 100%;          
                 text-align: center;
                 color: #000000;
                 margin: 0 auto; 
-                font-size: 70px;  
+                font-size: 60px;  
                 text-shadow: 0px -2px 4px #00ffb3, 0px -2px 10px #2d8f3e, 0px -10px 20px #00ddb5, 0px -20px 40px #0be060; 
-                font-family: 'Metal Mania', cursive;        
+                font-family: 'Metal Mania', cursive; 
+                overflow: hidden;       
             }
         }
         &_change {
@@ -92,13 +98,14 @@
         top: 0;
         left: 0;
         z-index: 20;
-        background-color: lightgray;
-        width: 70%;
+        background: linear-gradient(90deg, #e6e6e6 40%, #ffffff 90%), #00000095; 
+        width: 100%;
         &_title {
             font-family: 'Metal Mania', cursive;               
         }    
         &_page {
-            margin-bottom: 20px;
+            margin-bottom: 10px;
+            font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
         } 
         &_change {
             display: flex;

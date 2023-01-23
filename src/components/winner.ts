@@ -13,7 +13,7 @@ export class Winner {
         .then((data) => {
           mainGarageTitleWinner.textContent = `Winner: ${
             data.name
-          } Time: ${obj.animationSpeed.toFixed(5)} seconds`;
+          } Time: ${obj.animationSpeed.toFixed(2)} seconds`;
           setTimeout(() => {
             mainGarageTitleWinner.textContent = "";
           }, 5000);

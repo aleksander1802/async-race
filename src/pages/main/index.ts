@@ -41,9 +41,16 @@ class MainPage extends Page {
     const header = element("header", { class: "header" });
     header.innerHTML = `
     <h1 class="header__title">Async Race</h1>    
-    <div class="header__buttons">    
-    <button class="button header__buttons_garage">Garage</button>
-    <button class="button header__buttons_winners">Winners</button>
+    <div class="header__buttons"> 
+    <button class="cybr-btn header__buttons_garage">Garage<span aria-hidden>_</span>
+      <span aria-hidden class="cybr-btn__glitch">Garage_</span>
+      <span aria-hidden class="cybr-btn__tag">R25</span>
+      </button>   
+      <button class="cybr-btn header__buttons_winners">
+      Winners<span aria-hidden>_</span>
+      <span aria-hidden class="cybr-btn__glitch">Winners_</span>
+      <span aria-hidden class="cybr-btn__tag">R25</span>
+      </button> 
     </div>
     `;
 
@@ -68,18 +75,18 @@ class MainPage extends Page {
     options.innerHTML = `
     <div class="main__options_item">
       <input class="main__options_item-name" placeholder="Create car name" type="text" >
-      <input class="main__options_item-newcolor" value="#2ecc71" type="color" >
+      <input class="main__options_item-newcolor" value="#ff0000" type="color" >
       <button class="button main__options_item-createBtn">Create</button>
     </div>
     <div class="main__options_item main__options_item-re">
       <input class="main__options_item-rename" placeholder="Rename car" type="text" >
-      <input class="main__options_item-recolor" type="color" >
+      <input class="main__options_item-recolor" value="#5900ff" type="color" >
       <button class="button main__options_item-updateBtn">Update</button>
     </div>
     <div class="main__options_item main__options_item-change">      
       <button class="button main__options_item-raceBtn">Race</button>
       <button class="button main__options_item-resetBtn" disabled>Reset</button>
-      <button class="button main__options_item-generateBtn">Generate cars (100)</button>
+      <button class="button main__options_item-generateBtn">Generate cars</button>
     </div>    
     `;
 
@@ -112,8 +119,15 @@ class MainPage extends Page {
     const change = element("div", { class: "main__garage_change" });
 
     change.innerHTML = `
-      <button class="button main__garage_change-prev">Previous</button>
-      <button class="button main__garage_change-next">Next</button>   
+      <button class="cybr-btn main__garage_change-prev">Prev<span aria-hidden>_</span>
+      <span aria-hidden class="cybr-btn__glitch">Prev_</span>
+      <span aria-hidden class="cybr-btn__tag">R25</span>
+      </button>   
+      <button class="cybr-btn main__garage_change-next">
+      Next<span aria-hidden>_</span>
+      <span aria-hidden class="cybr-btn__glitch">Next_</span>
+      <span aria-hidden class="cybr-btn__tag">R25</span>
+      </button> 
     `;
     return change;
   }
