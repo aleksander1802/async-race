@@ -33,13 +33,6 @@ export class PagesChange {
     const currentPage = Pagination.currentPage;
     const currentNode = document.querySelector(".garage__wrapper");
 
-    console.log(Pagination.currentArray);
-    console.log(currentPage);
-
-    
-    
-    
-
     if (currentPage === 1 || currentPage === 0 && Pagination.currentArray.length === 0) {
       return;
     } else {
