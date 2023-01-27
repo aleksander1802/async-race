@@ -42,7 +42,7 @@ body {
   position: relative;
 }
 .mistake2::after {
-  content: "Please, select car for rename of recolor";
+  content: "Please, select car for rename or recolor";
 }
 
 .button {

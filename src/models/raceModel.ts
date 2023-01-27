@@ -3,14 +3,14 @@ export type IGarage = [
     name: string;
     color: string;
     id: number;
-  }
+  },
 ];
 
-export type ICurrentArray = {
+export type ICurrentArray = Array<{
   name: string;
   color: string;
   id: number;
-}[];
+}>;
 
 export type ICar = {
   name: string;
@@ -50,4 +50,8 @@ export interface IWinnersData {
 export interface IUpdateWinner {
   wins: number;
   time: number;
+}
+
+export interface Box<Type> {
+  contents: Type
 }

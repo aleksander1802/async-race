@@ -1,31 +1,32 @@
-import RaceService from "../services/RaceService";
-import { IGarage, iCreateNewCar } from "../models/raceModel";
-import { createGarageItem } from "./garage";
-import Pagination from "./pagination";
-import { PagesChange } from "./pageChange";
+import RaceService from '../services/RaceService';
+import { IGarage, iCreateNewCar } from '../models/raceModel';
+import { createGarageItem } from './garage';
+import Pagination from './pagination';
+import { PagesChange } from './pageChange';
 
 class CreateCar {
-  static inputNameValue: string = "";
-  static inputColorValue: string = "#2ecc71";
+  static inputNameValue = '';
+
+  static inputColorValue = '#2ecc71';
+
   static currentCount: number;
 
   static createNewCar = () => {
-    const garageItems = document.querySelector(".garage__items");
+    const garageItems = document.querySelector('.garage__items');
     const itemPerPage = 7;
 
     const nameInputBtn = document.querySelector(
-      ".main__options_item-createBtn"
+      '.main__options_item-createBtn',
     );
     const currentNameInputValue = document.querySelector(
-      ".main__options_item-name"
+      '.main__options_item-name',
     );
 
     if (CreateCar.inputNameValue.length === 0) {
-      nameInputBtn?.classList.add("mistake");
+      nameInputBtn?.classList.add('mistake');
       return;
-    } else {
-      nameInputBtn?.classList.remove("mistake");
     }
+    nameInputBtn?.classList.remove('mistake');
 
     const newCar: iCreateNewCar = {
       name: CreateCar.inputNameValue,
@@ -47,8 +48,8 @@ class CreateCar {
     }
 
     if (currentNameInputValue instanceof HTMLInputElement) {
-      currentNameInputValue.value = "";
-      CreateCar.inputNameValue = "";
+      currentNameInputValue.value = '';
+      CreateCar.inputNameValue = '';
     }
   };
 }

@@ -1,11 +1,11 @@
-import { IGarage, ICar, ICurrentArray } from "../models/raceModel";
-import { element } from "../services/element";
-import { removeCar, selectCar } from "../pages/main/listeners";
-import { StartSingle } from "./startSingle";
-import { ResetSingle } from "./resetSingle";
+import { IGarage, ICar, ICurrentArray } from '../models/raceModel';
+import { element } from '../services/element';
+import { removeCar, selectCar } from '../pages/main/listeners';
+import { StartSingle } from './startSingle';
+import { ResetSingle } from './resetSingle';
 
 export const createAllGarageItem = (array: ICurrentArray) => {
-  const items = element("ul", { class: "garage__items" });
+  const items = element('ul', { class: 'garage__items' });
 
   const render = array.map((item) => {
     const renderItem = createGarageItem(item);
@@ -18,7 +18,7 @@ export const createAllGarageItem = (array: ICurrentArray) => {
 };
 
 export function garageItemConfig(item: ICar) {
-  const garageItemConfig = element("div", { class: "garage__item_config" });
+  const garageItemConfig = element('div', { class: 'garage__item_config' });
 
   garageItemConfig.innerHTML = `
           <div class="garage__item_config-img garage__item_config-img-change" id=${item.id}>
@@ -130,21 +130,21 @@ l-15 -73 3006 7 c1653 4 3007 8 3009 9 1 1 -8 37 -20 81 -19 67 -22 105 -22
 }
 
 export const garageItemConfigBtns = () => {
-  const item = element("div", { class: "garage__item_config-btns" });
-  const itemStartBtn = element("button", {
-    class: "button mainPageButtonChange garage__item_config-startBtn",
+  const item = element('div', { class: 'garage__item_config-btns' });
+  const itemStartBtn = element('button', {
+    class: 'button mainPageButtonChange garage__item_config-startBtn',
   });
-  itemStartBtn.textContent = `A`;
-  itemStartBtn.addEventListener("click", (e) => {
+  itemStartBtn.textContent = 'A';
+  itemStartBtn.addEventListener('click', (e) => {
     StartSingle.start(e);
   });
 
-  const itemResetBtn = element("button", {
-    class: "button mainPageButtonChange garage__item_config-resetBtn",
+  const itemResetBtn = element('button', {
+    class: 'button mainPageButtonChange garage__item_config-resetBtn',
   });
-  itemResetBtn.textContent = `B`;
+  itemResetBtn.textContent = 'B';
   itemResetBtn.disabled = true;
-  itemResetBtn.addEventListener("click", (e) => {
+  itemResetBtn.addEventListener('click', (e) => {
     ResetSingle.resetCurrentCar(e);
   });
 
@@ -157,29 +157,29 @@ export const garageItemConfigBtns = () => {
 export function createGarageItem(item: ICar) {
   const garageItem = garageItemConfig(item);
   const garageBtns = garageItemConfigBtns();
-  const elem = element("li", { class: "garage__item", id: `${item.id}` });
+  const elem = element('li', { class: 'garage__item', id: `${item.id}` });
 
-  const garageItemWrapper = element("div", { class: "garage__item_wrapper" });
+  const garageItemWrapper = element('div', { class: 'garage__item_wrapper' });
 
-  const selectBtn = element("button", {
-    class: "button mainPageButtonChange garage__item_wrapper-selectBtn",
+  const selectBtn = element('button', {
+    class: 'button mainPageButtonChange garage__item_wrapper-selectBtn',
   });
-  selectBtn.textContent = `Select`;
-  selectBtn.addEventListener("click", (e) => {
+  selectBtn.textContent = 'Select';
+  selectBtn.addEventListener('click', (e) => {
     selectCar(e);
   });
 
-  const removeBtn = element("button", {
-    class: "button mainPageButtonChange garage__item_wrapper-removeBtn",
+  const removeBtn = element('button', {
+    class: 'button mainPageButtonChange garage__item_wrapper-removeBtn',
   });
-  removeBtn.textContent = "Remove";
+  removeBtn.textContent = 'Remove';
 
-  removeBtn.addEventListener("click", (e) => {
+  removeBtn.addEventListener('click', (e) => {
     removeCar(e);
   });
 
-  const itemWrapperName = element("div", {
-    class: "garage__item_wrapper-name",
+  const itemWrapperName = element('div', {
+    class: 'garage__item_wrapper-name',
   });
   itemWrapperName.textContent = `${item.name}`;
 

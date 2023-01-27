@@ -1,21 +1,21 @@
-import Page from "../../services/template";
-import { element } from "../../services/element";
-import { createAllGarageItem } from "../../components/garage";
-import RaceService from "../../services/RaceService";
-import Pagination from "../../components/pagination";
-import { WinnerPage } from "../../pages/winners/winnerPage";
+import Page from '../../services/template';
+import { element } from '../../services/element';
+import { createAllGarageItem } from '../../components/garage';
+import RaceService from '../../services/RaceService';
+import Pagination from '../../components/pagination';
+import { WinnerPage } from '../winners/winnerPage';
 
 export const updateGarageCount = () => {
-  let garageCount = document.querySelector(".main__garage_title");
-  let winnersCount = document.querySelector(".main__winner_title");
+  const garageCount = document.querySelector('.main__garage_title');
+  const winnersCount = document.querySelector('.main__winner_title');
 
   RaceService()
     .getAllCars()
     .then((data) => {
       if (garageCount instanceof HTMLElement) {
         garageCount.textContent = `Garage: ${data.length}`;
-        let limitPerPage = 7;
-        let pagesAtAll = Math.ceil(data.length / limitPerPage);
+        const limitPerPage = 7;
+        const pagesAtAll = Math.ceil(data.length / limitPerPage);
         Pagination.pagesAtAll = pagesAtAll;
       }
 
@@ -24,8 +24,8 @@ export const updateGarageCount = () => {
         .then((data) => {
           if (winnersCount instanceof HTMLElement) {
             winnersCount.textContent = `Winners: ${data.length}`;
-            let limitPerPage = 10;
-            let pagesAtAll = Math.ceil(data.length / limitPerPage);
+            const limitPerPage = 10;
+            const pagesAtAll = Math.ceil(data.length / limitPerPage);
             WinnerPage.pagesAtAll = pagesAtAll;
             WinnerPage.currentArray = data;
           }
@@ -38,7 +38,7 @@ class MainPage extends Page {
   }
 
   protected createHeader() {
-    const header = element("header", { class: "header" });
+    const header = element('header', { class: 'header' });
     header.innerHTML = `
     <h1 class="header__title">Async Race</h1>    
     <div class="header__buttons"> 
@@ -58,7 +58,7 @@ class MainPage extends Page {
   }
 
   protected createMain() {
-    const main = element("main", { class: "main" });
+    const main = element('main', { class: 'main' });
     const winnerPage = WinnerPage.createWinnerPage();
 
     main.append(this.createOptions());
@@ -70,7 +70,7 @@ class MainPage extends Page {
   }
 
   protected createOptions() {
-    const options = element("div", { class: "main__options" });
+    const options = element('div', { class: 'main__options' });
 
     options.innerHTML = `
     <div class="main__options_item">
@@ -94,11 +94,11 @@ class MainPage extends Page {
   }
 
   protected createGarage() {
-    const garage = element("div", { class: "main__garage" });
+    const garage = element('div', { class: 'main__garage' });
 
-    const garageWrapper = element("div", { class: "garage__wrapper" });
-    let currentPage = Pagination.currentPage;
-    let count = 0;
+    const garageWrapper = element('div', { class: 'garage__wrapper' });
+    const { currentPage } = Pagination;
+    const count = 0;
     garage.innerHTML = `
     <h2 class="main__garage_title">Garage ${count}</h2>
     <div class="main__garage_title-winner"></div>
@@ -116,7 +116,7 @@ class MainPage extends Page {
   }
 
   protected pageChange() {
-    const change = element("div", { class: "main__garage_change" });
+    const change = element('div', { class: 'main__garage_change' });
 
     change.innerHTML = `
       <button class="cybr-btn main__garage_change-prev">Prev<span aria-hidden>_</span>
@@ -133,7 +133,7 @@ class MainPage extends Page {
   }
 
   protected createFooter() {
-    const footer = element("footer", { class: "footer" });
+    const footer = element('footer', { class: 'footer' });
 
     footer.innerHTML = `
     <div class="footer__wrapper">

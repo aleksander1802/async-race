@@ -7,9 +7,9 @@
         "airbnb-typescript/base"
     ],
     "parserOptions": {
-        "ecmaVersion": 2020,
+        "ecmaVersion": "latest",
         "sourceType": "module",
-        "project": "./tsconfig.eslint.json"
+        "project": ["./tsconfig.eslint.json", "./tsconfig.json"]
     },
     "env": {
         "es6": true,
@@ -19,7 +19,7 @@
     "rules": {
         "no-debugger": "off",
         "no-console": 0,
-        "class-methods-use-this": "off",
-        "@typescript-eslint/no-explicit-any": "warn"
+        "class-methods-use-this": "off",        
+        "@typescript-eslint/no-explicit-any": "error"
     }
 }

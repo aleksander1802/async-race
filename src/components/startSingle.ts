@@ -1,17 +1,17 @@
-import RaceService from "../services/RaceService";
+import RaceService from '../services/RaceService';
 import {
   IEngineStartOrStopRequest,
   IEngineToDriveMode,
-} from "../models/raceModel";
-import { element } from "../services/element";
-import { StartAndResetAll } from "./startAll";
-import { Winner } from "./winner";
-import { IWinner } from "../models/raceModel";
-import { WinnerPage } from "../pages/winners/winnerPage";
+  IWinner,
+} from '../models/raceModel';
+import { element } from '../services/element';
+import { StartAndResetAll } from './startAll';
+import { Winner } from './winner';
+import { WinnerPage } from '../pages/winners/winnerPage';
 
 export class StartSingle {
   static start(e: MouseEvent) {
-    const target = e.target;
+    const { target } = e;
 
     if (target instanceof HTMLButtonElement) {
       target.disabled = true;
@@ -23,8 +23,8 @@ export class StartSingle {
       }
 
       if (parentNode && parentNode instanceof HTMLElement) {
-        const currentId = parentNode.getAttribute("id");
-        const status = "started";
+        const currentId = parentNode.getAttribute('id');
+        const status = 'started';
         const currentCar = parentNode.lastChild;
         const firstChild = currentCar?.childNodes[1];
 
@@ -49,7 +49,7 @@ export class StartSingle {
               const firstChild = currentCar?.childNodes[1];
               if (data === damageEngineCode) {
                 if (firstChild instanceof HTMLElement) {
-                  firstChild.style.animationPlayState = `paused`;
+                  firstChild.style.animationPlayState = 'paused';
                 }
               }
 
@@ -58,7 +58,7 @@ export class StartSingle {
             .then((data) => {
               if (data instanceof Object) {
                 if (StartAndResetAll.winners.length === 0) {
-                  let winner: IWinner = {
+                  const winner: IWinner = {
                     currentId: `${currentId}`,
                     animationSpeed: +animationSpeed.toFixed(2),
                   };
@@ -67,7 +67,7 @@ export class StartSingle {
                   Winner.winnerTextContent(winner);
                   WinnerPage.createWinner(winner);
                   if (StartAndResetAll.winners.length >= 1) {
-                    return;
+
                   }
                 }
               }

@@ -41,7 +41,7 @@ body {
 .mistake2 {    
     position: relative;
     &::after {
-        content: 'Please, select car for rename of recolor';        
+        content: 'Please, select car for rename or recolor';        
     }
 }
 

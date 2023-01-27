@@ -1,10 +1,10 @@
-import { IWinner, ICar } from "../models/raceModel";
-import RaceService from "../services/RaceService";
+import { IWinner, ICar } from '../models/raceModel';
+import RaceService from '../services/RaceService';
 
 export class Winner {
   static winnerTextContent(obj: IWinner) {
     const mainGarageTitleWinner = document.querySelector(
-      ".main__garage_title-winner"
+      '.main__garage_title-winner',
     );
 
     if (mainGarageTitleWinner) {
@@ -15,7 +15,7 @@ export class Winner {
             data.name
           } Time: ${obj.animationSpeed.toFixed(5)} seconds`;
           setTimeout(() => {
-            mainGarageTitleWinner.textContent = "";
+            mainGarageTitleWinner.textContent = '';
           }, 5000);
         });
     }
@@ -23,10 +23,10 @@ export class Winner {
 
   static resetWinnerTextContent() {
     const mainGarageTitleWinner = document.querySelector(
-      ".main__garage_title-winner"
+      '.main__garage_title-winner',
     );
     if (mainGarageTitleWinner) {
-      mainGarageTitleWinner.textContent = ``;
+      mainGarageTitleWinner.textContent = '';
     }
   }
 }

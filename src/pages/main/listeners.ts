@@ -1,52 +1,52 @@
-import { PagesChange } from "../../components/pageChange";
-import { generateCars } from "../../components/generateCars";
-import CreateCar from "../../components/createCar";
-import RaceService from "../../services/RaceService";
-import UpdateCar from "../../components/updateCar";
-import { updateGarageCount } from "../../pages/main/index";
-import { StartAndResetAll } from "../../components/startAll";
-import { Winner } from "../../components/winner";
-import { WinnerPage } from "../../pages/winners/winnerPage";
+import { PagesChange } from '../../components/pageChange';
+import { generateCars } from '../../components/generateCars';
+import CreateCar from '../../components/createCar';
+import RaceService from '../../services/RaceService';
+import UpdateCar from '../../components/updateCar';
+import { updateGarageCount } from './index';
+import { StartAndResetAll } from '../../components/startAll';
+import { Winner } from '../../components/winner';
+import { WinnerPage } from '../winners/winnerPage';
 
 export const toGarage = () => {
-  const garage = document.querySelector(".header__buttons_garage");
+  const garage = document.querySelector('.header__buttons_garage');
 
   if (garage) {
-    garage.addEventListener("click", () => {
+    garage.addEventListener('click', () => {
       WinnerPage.hideWinnerPage();
     });
   }
 };
 
 export const toWinners = () => {
-  const winners = document.querySelector(".header__buttons_winners");
+  const winners = document.querySelector('.header__buttons_winners');
   if (winners) {
-    winners.addEventListener("click", () => {
+    winners.addEventListener('click', () => {
       WinnerPage.hideMainPage();
     });
   }
 };
 
 export const Create = () => {
-  const create = document.querySelector(".main__options_item-createBtn");
-  const newCarNameAndColor = document.querySelector(".main__options_item");
+  const create = document.querySelector('.main__options_item-createBtn');
+  const newCarNameAndColor = document.querySelector('.main__options_item');
 
   if (create) {
-    create.addEventListener("click", () => {
+    create.addEventListener('click', () => {
       CreateCar.createNewCar();
       updateGarageCount();
     });
   }
 
   if (newCarNameAndColor) {
-    newCarNameAndColor.addEventListener("input", (e) => {
-      const target = e.target;
+    newCarNameAndColor.addEventListener('input', (e) => {
+      const { target } = e;
 
       if (target instanceof HTMLInputElement) {
-        if (target.classList.contains("main__options_item-name")) {
+        if (target.classList.contains('main__options_item-name')) {
           CreateCar.inputNameValue = target.value.trim();
         }
-        if (target.classList.contains("main__options_item-newcolor")) {
+        if (target.classList.contains('main__options_item-newcolor')) {
           CreateCar.inputColorValue = target.value;
         }
       }
@@ -55,24 +55,24 @@ export const Create = () => {
 };
 
 export const Update = () => {
-  const update = document.querySelector(".main__options_item-updateBtn");
-  const CarReNameAndReColor = document.querySelector(".main__options_item-re");
+  const update = document.querySelector('.main__options_item-updateBtn');
+  const CarReNameAndReColor = document.querySelector('.main__options_item-re');
 
   if (update) {
-    update.addEventListener("click", () => {
+    update.addEventListener('click', () => {
       UpdateCar.updateNewCar();
     });
   }
 
   if (CarReNameAndReColor) {
-    CarReNameAndReColor.addEventListener("input", (e) => {
-      const target = e.target;
+    CarReNameAndReColor.addEventListener('input', (e) => {
+      const { target } = e;
 
       if (target instanceof HTMLInputElement) {
-        if (target.classList.contains("main__options_item-rename")) {
+        if (target.classList.contains('main__options_item-rename')) {
           UpdateCar.inputReNameValue = target.value.trim();
         }
-        if (target.classList.contains("main__options_item-recolor")) {
+        if (target.classList.contains('main__options_item-recolor')) {
           UpdateCar.inputReColorValue = target.value;
         }
       }
@@ -82,23 +82,22 @@ export const Update = () => {
 
 export const selectCar = (e: MouseEvent) => {
   const currentRenameInput = document.querySelector(
-    ".main__options_item-rename"
+    '.main__options_item-rename',
   );
 
-  const target = e.target;
+  const { target } = e;
   if (target instanceof HTMLElement) {
     if (
-      target.parentNode?.parentNode &&
-      target.parentNode?.parentNode instanceof HTMLElement
+      target.parentNode?.parentNode
+      && target.parentNode?.parentNode instanceof HTMLElement
     ) {
       const currentNode = target.parentNode.lastChild;
-      const svgNode =
-        target.parentNode.parentNode.lastChild?.childNodes[1].childNodes[1];
-      const currentIDs = target.parentNode.parentNode.getAttribute("id");
+      const svgNode = target.parentNode.parentNode.lastChild?.childNodes[1].childNodes[1];
+      const currentIDs = target.parentNode.parentNode.getAttribute('id');
       const currentTextContent = target.parentNode.lastChild?.textContent;
       if (
-        currentRenameInput &&
-        currentRenameInput instanceof HTMLInputElement
+        currentRenameInput
+        && currentRenameInput instanceof HTMLInputElement
       ) {
         currentRenameInput.value = `${currentTextContent}`;
         UpdateCar.inputReNameValue = `${currentTextContent}`;
@@ -120,9 +119,9 @@ export const selectCar = (e: MouseEvent) => {
 };
 
 export const Race = () => {
-  const race = document.querySelector(".main__options_item-raceBtn");
+  const race = document.querySelector('.main__options_item-raceBtn');
   if (race) {
-    race.addEventListener("click", (e) => {
+    race.addEventListener('click', (e) => {
       if (e instanceof MouseEvent) {
         StartAndResetAll.startAll(e);
       }
@@ -131,9 +130,9 @@ export const Race = () => {
 };
 
 export const Reset = () => {
-  const reset = document.querySelector(".main__options_item-resetBtn");
+  const reset = document.querySelector('.main__options_item-resetBtn');
   if (reset) {
-    reset.addEventListener("click", (e) => {
+    reset.addEventListener('click', (e) => {
       if (e instanceof MouseEvent) {
         StartAndResetAll.resetAll(e);
         Winner.resetWinnerTextContent();
@@ -143,9 +142,9 @@ export const Reset = () => {
 };
 
 export const Generate = () => {
-  const generate = document.querySelector(".main__options_item-generateBtn");
+  const generate = document.querySelector('.main__options_item-generateBtn');
   if (generate) {
-    generate.addEventListener("click", () => {
+    generate.addEventListener('click', () => {
       generateCars();
       updateGarageCount();
     });
@@ -153,14 +152,14 @@ export const Generate = () => {
 };
 
 export const removeCar = (e: MouseEvent) => {
-  const target = e.target;
+  const { target } = e;
   if (target instanceof HTMLElement) {
     if (
-      target.parentNode?.parentNode &&
-      target.parentNode?.parentNode instanceof HTMLElement
+      target.parentNode?.parentNode
+      && target.parentNode?.parentNode instanceof HTMLElement
     ) {
       const currentNode = target.parentNode.parentNode;
-      const currentID = target.parentNode?.parentNode.getAttribute("id");
+      const currentID = target.parentNode?.parentNode.getAttribute('id');
 
       if (currentID) {
         RaceService()
@@ -176,10 +175,10 @@ export const removeCar = (e: MouseEvent) => {
                 RaceService().deleteWinner(currentID);
 
                 const winnerRemove = document.querySelectorAll(
-                  ".winner__wrapper_item"
+                  '.winner__wrapper_item',
                 );
                 winnerRemove.forEach((item) => {
-                  if (item.getAttribute("id") === currentID) {
+                  if (item.getAttribute('id') === currentID) {
                     item.remove();
                   }
                 });
@@ -192,10 +191,10 @@ export const removeCar = (e: MouseEvent) => {
 };
 
 export const prevPage = () => {
-  const prevBtn = document.querySelector(".main__garage_change-prev");
+  const prevBtn = document.querySelector('.main__garage_change-prev');
 
   if (prevBtn) {
-    prevBtn.addEventListener("click", () => {
+    prevBtn.addEventListener('click', () => {
       PagesChange.prevPageButton();
       PagesChange.changeTextContentOfCurrentPage();
     });
@@ -203,65 +202,58 @@ export const prevPage = () => {
 };
 
 export const nextPage = () => {
-  const nextBtn = document.querySelector(".main__garage_change-next");
+  const nextBtn = document.querySelector('.main__garage_change-next');
 
   if (nextBtn) {
-    nextBtn.addEventListener("click", () => {
+    nextBtn.addEventListener('click', () => {
       PagesChange.nextPageButton();
       PagesChange.changeTextContentOfCurrentPage();
     });
   }
 };
 
-
 export const sortByWins = () => {
   const winnersList = document.querySelector('.winner__wrapper');
   WinnerPage.numberWinner = 0;
-  
+
   if (WinnerPage.sortWins === 'asc') {
-    WinnerPage.sortWins = 'desc'
-    const newArray = [...WinnerPage.currentArray].sort((a, b) => a.wins - b.wins)
-    const newItemsList = WinnerPage.createAllWinnersItem(newArray)
+    WinnerPage.sortWins = 'desc';
+    const newArray = [...WinnerPage.currentArray].sort((a, b) => a.wins - b.wins);
+    const newItemsList = WinnerPage.createAllWinnersItem(newArray);
     if (winnersList && winnersList instanceof HTMLElement) {
-      winnersList.innerHTML = ''
-      winnersList.append(newItemsList)
+      winnersList.innerHTML = '';
+      winnersList.append(newItemsList);
     }
-  } 
-  else {
-    WinnerPage.sortWins = 'asc'
-    const newArray = [...WinnerPage.currentArray].sort((a, b) => b.wins - a.wins)
-    const newItemsList = WinnerPage.createAllWinnersItem(newArray)
+  } else {
+    WinnerPage.sortWins = 'asc';
+    const newArray = [...WinnerPage.currentArray].sort((a, b) => b.wins - a.wins);
+    const newItemsList = WinnerPage.createAllWinnersItem(newArray);
     if (winnersList && winnersList instanceof HTMLElement) {
-      winnersList.innerHTML = ''
-      winnersList.append(newItemsList)
+      winnersList.innerHTML = '';
+      winnersList.append(newItemsList);
     }
   }
-
-}
+};
 
 export const sortByTime = () => {
-
   const winnersList = document.querySelector('.winner__wrapper');
   WinnerPage.numberWinner = 0;
-  
+
   if (WinnerPage.sortWins === 'asc') {
-    WinnerPage.sortWins = 'desc'
-    const newArray = [...WinnerPage.currentArray].sort((a, b) => a.time - b.time)
-    const newItemsList = WinnerPage.createAllWinnersItem(newArray)
+    WinnerPage.sortWins = 'desc';
+    const newArray = [...WinnerPage.currentArray].sort((a, b) => a.time - b.time);
+    const newItemsList = WinnerPage.createAllWinnersItem(newArray);
     if (winnersList && winnersList instanceof HTMLElement) {
-      winnersList.innerHTML = ''
-      winnersList.append(newItemsList)
+      winnersList.innerHTML = '';
+      winnersList.append(newItemsList);
     }
-  } 
-  else {
-    WinnerPage.sortWins = 'asc'
-    const newArray = [...WinnerPage.currentArray].sort((a, b) => b.time - a.time)
-    const newItemsList = WinnerPage.createAllWinnersItem(newArray)
+  } else {
+    WinnerPage.sortWins = 'asc';
+    const newArray = [...WinnerPage.currentArray].sort((a, b) => b.time - a.time);
+    const newItemsList = WinnerPage.createAllWinnersItem(newArray);
     if (winnersList && winnersList instanceof HTMLElement) {
-      winnersList.innerHTML = ''
-      winnersList.append(newItemsList)
+      winnersList.innerHTML = '';
+      winnersList.append(newItemsList);
     }
   }
-  
-  
-}
+};

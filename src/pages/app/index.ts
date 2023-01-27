@@ -1,5 +1,5 @@
-import Page from "../../services/template";
-import MainPage from "../../pages/main";
+import Page from '../../services/template';
+import MainPage from '../main';
 import {
   Create,
   toGarage,
@@ -10,10 +10,12 @@ import {
   Generate,
   prevPage,
   nextPage,
-} from "../../pages/main/listeners";
+} from '../main/listeners';
+
 class App {
   private container: HTMLElement = document.body;
-  private defaultPageID = "current-page";
+
+  private defaultPageID = 'current-page';
 
   private renderPage(idPage: string) {
     const currentPageHTML = document.querySelector(`#${this.defaultPageID}`);
@@ -22,7 +24,7 @@ class App {
       currentPageHTML.remove();
     }
 
-    let page: Page | null = new MainPage(idPage);
+    const page: Page | null = new MainPage(idPage);
 
     if (page) {
       const PageHTML = page.render();
@@ -44,7 +46,7 @@ class App {
   }
 
   private enableRouteChangeReload() {
-    window.addEventListener("DOMContentLoaded", this.launchListeners);
+    window.addEventListener('DOMContentLoaded', this.launchListeners);
   }
 
   private hashChangeHandle() {
@@ -54,7 +56,7 @@ class App {
 
   run() {
     this.hashChangeHandle();
-    console.log('Уважаемый проверяющий, в момент нажатия кнопки Race блокируются кнопки переключения страниц, это не баг, пожалуйста, нажми на кнопку Reset, прежде чем двигаться дальше по страницам');    
+    console.log('Уважаемый проверяющий, в момент нажатия кнопки Race блокируются кнопки переключения страниц, это не баг, пожалуйста, нажми на кнопку Reset, прежде чем двигаться дальше по страницам');
   }
 }
 

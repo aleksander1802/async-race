@@ -1,8 +1,8 @@
-import RaceService from "../services/RaceService";
+import RaceService from '../services/RaceService';
 
 export class ResetSingle {
   static resetCurrentCar(e: MouseEvent) {
-    const target = e.target;
+    const { target } = e;
 
     if (target instanceof HTMLButtonElement) {
       target.disabled = true;
@@ -16,8 +16,8 @@ export class ResetSingle {
       }
 
       if (parentNode && parentNode instanceof HTMLElement) {
-        const currentId = parentNode.getAttribute("id");
-        const status = "stopped";
+        const currentId = parentNode.getAttribute('id');
+        const status = 'stopped';
         const currentCar = parentNode.lastChild;
         const firstChild = currentCar?.childNodes[1];
 
@@ -27,7 +27,7 @@ export class ResetSingle {
             .then((data) => {
               if (data.velocity === 0) {
                 if (firstChild instanceof HTMLElement) {
-                  firstChild.style.animation = "none";
+                  firstChild.style.animation = 'none';
                 }
               }
             });

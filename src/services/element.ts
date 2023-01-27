@@ -11,8 +11,8 @@ export function element<K extends keyof HTMLElementTagNameMap>(
   if (attributes) {
     for (const key of Object.keys(attributes)) {
       const attributeValue = attributes[key];
-      if (typeof attributeValue === "boolean" && attributeValue) {
-        element.setAttribute(key, "");
+      if (typeof attributeValue === 'boolean' && attributeValue) {
+        element.setAttribute(key, '');
       } else {
         element.setAttribute(key, attributeValue as string);
       }
