@@ -11,12 +11,12 @@ function getRandomColor() {
 
 export const generateCars = () => {
   const min = 1;
-  const max = 102;
+  const max = 100;
 
   const magicNumberOne = 1;
   const magicNumberHalfOne = 0.5;
 
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < 10; i++) {
     const rand = Math.floor(
       min - magicNumberHalfOne + Math.random() * (max - min + magicNumberOne),
     );

@@ -1,37 +1,53 @@
 import Page from '../../services/template';
 import { element } from '../../services/element';
-import { createAllGarageItem } from '../../components/garage';
 import RaceService from '../../services/RaceService';
 import Pagination from '../../components/pagination';
 import { WinnerPage } from '../winners/winnerPage';
 
-export const updateGarageCount = () => {
-  const garageCount = document.querySelector('.main__garage_title');
-  const winnersCount = document.querySelector('.main__winner_title');
+const raceService = RaceService();
 
-  RaceService()
-    .getAllCars()
-    .then((data) => {
-      if (garageCount instanceof HTMLElement) {
-        garageCount.textContent = `Garage: ${data.length}`;
-        const limitPerPage = 7;
-        const pagesAtAll = Math.ceil(data.length / limitPerPage);
-        Pagination.pagesAtAll = pagesAtAll;
-      }
+const limitPerPageCars = 7;
+const limitPerPageWinners = 10;
 
-      RaceService()
-        .getAllWinners()
-        .then((data) => {
-          if (winnersCount instanceof HTMLElement) {
-            winnersCount.textContent = `Winners: ${data.length}`;
-            const limitPerPage = 10;
-            const pagesAtAll = Math.ceil(data.length / limitPerPage);
-            WinnerPage.pagesAtAll = pagesAtAll;
-            WinnerPage.currentArray = data;
-          }
-        });
-    });
+export const updateGarageCount = async () => {
+  const garageCount = document.querySelector('.main__garage_title') as HTMLElement | null;
+  const winnersCount = document.querySelector('.main__winner_title') as HTMLElement | null;
+
+  try {
+    const [carsData, winnersData] = await Promise.all([
+      raceService.getAllCars(),
+      raceService.getAllWinners(),
+    ]);
+
+    updateGarageCountDisplay(garageCount, carsData.length);
+    updateWinnersCountDisplay(winnersCount, winnersData.length);
+    updatePagination(carsData, winnersData);
+  } catch (error) {
+    console.error('Error:', error);
+  }
 };
+
+const updateGarageCountDisplay = (element: HTMLElement | null, count: number) => {
+  if (element instanceof HTMLElement) {
+    element.textContent = `Garage: ${count}`;
+  }
+};
+
+const updateWinnersCountDisplay = (element: HTMLElement | null, count: number) => {
+  if (element instanceof HTMLElement) {
+    element.textContent = `Winners: ${count}`;
+  }
+};
+
+const updatePagination = (carsData: any[], winnersData: any[]) => {
+  const pagesAtAllCars = Math.ceil(carsData.length / limitPerPageCars);
+  const pagesAtAllWinners = Math.ceil(winnersData.length / limitPerPageWinners);
+
+  Pagination.pagesAtAll = pagesAtAllCars;
+  WinnerPage.pagesAtAll = pagesAtAllWinners;
+  WinnerPage.currentArray = winnersData;
+};
+
 class MainPage extends Page {
   constructor(id: string) {
     super(id);
@@ -139,7 +155,7 @@ class MainPage extends Page {
     <div class="footer__wrapper">
     <a class="footer__wrapper_link" href="https://github.com/aleksander1802">
     <img class="footer__wrapper_github" 
-       id="github" src="assets/images/github.svg">    
+       id="github" src="./assets/images/github.svg">    
     </a>
 
     <div class="footer__wrapper_year">
@@ -148,7 +164,7 @@ class MainPage extends Page {
 
     <a class="footer__wrapper_link" href="https://rs.school/js/">
     <img class="footer__wrapper_rs footer__wrapper_link"
-         src="assets/images/rs_school.svg" 
+         src="./assets/images/rs_school.svg" 
          alt="rs school course link">
     </a>
     </div>

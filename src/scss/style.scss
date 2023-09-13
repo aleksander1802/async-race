@@ -1,59 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@100;200;300;400;500;600;700;800&display=swap');
+
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: Sora, 'sans-serif';
 }
 
 body {
-     background-color: lightgray; 
-     background: linear-gradient(90deg, #ffffff 40%, #9a9a9a 90%), #00000095;   
-      
+	background-color: lightgray;
+	background: linear-gradient(90deg, #ffffff 40%, #9a9a9a 90%), #00000095;
 }
-
-@font-face {
-    font-family: Cyber;
-    src: url("https://assets.codepen.io/605876/Blender-Pro-Bold.otf");
-    font-display: swap;
-}
-
-
 
 .mistake,
-.mistake2 {    
-    position: relative;
-    &::after {
-        content: 'Please, enter car name';
-        position: absolute;        
-        width: 300px;
-        left: 50%;
-        transform: translateX(30%);
-        color: crimson;
-        font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-        font-size: 30px;
-    }
-}
-.mistake { 
-    &::after {
-        content: 'Please, enter car name';        
-    }
+.mistake2 {
+	position: relative;
+	&::after {
+		content: 'Please, enter car name';
+		position: absolute;
+		width: 300px;
+		left: 50%;
+		transform: translateX(30%);
+		color: crimson;
+		font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+		font-size: 30px;
+	}
 }
 
-.mistake2 {    
-    position: relative;
-    &::after {
-        content: 'Please, select car for rename or recolor';        
-    }
+.mistake {
+	&::after {
+		content: 'Please, enter car name';
+	}
 }
 
+.mistake2 {
+	position: relative;
+	&::after {
+		content: 'Please, select car for rename or recolor';
+	}
+}
 
 @import url('https://fonts.googleapis.com/css2?family=Metal+Mania&display=swap');
-@import "blocks/button";
-@import "blocks/cybrBtn";
-@import "blocks/header";
-@import "blocks/main";
-@import "blocks/footer";
-@import "blocks/garage";
-@import "blocks/winner";
-@import "blocks/media";
-
-
+@import 'blocks/button';
+@import 'blocks/cybrBtn';
+@import 'blocks/header';
+@import 'blocks/main';
+@import 'blocks/footer';
+@import 'blocks/garage';
+@import 'blocks/winner';
+@import 'blocks/media';

@@ -1,18 +1,19 @@
 .footer {
-    border-top: 1px solid rgb(0, 0, 0);
-    &__wrapper {
-        width: 100%;
-        display: flex;
-        flex-wrap: wrap;
-        flex-direction: row;
-        justify-content: space-around;
-        align-items: center;        
-        &_year {
-            cursor: default;
-        }
-        &_rs {
-            width: 300px;
-            height: auto;
-        }        
-    }
+	border-top: 1px solid rgb(0, 0, 0);
+	&__wrapper {
+		width: 100%;
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		grid-template-rows: auto;
+        justify-content: center;
+		align-items: center;
+        justify-items: center;
+		&_year {
+			cursor: default;
+		}
+		&_rs {
+			width: 300px;
+			height: auto;
+		}
+	}
 }

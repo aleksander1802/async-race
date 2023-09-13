@@ -1,32 +1,35 @@
-import { IWinner, ICar } from '../models/raceModel';
+import { IWinner } from '../models/raceModel';
 import RaceService from '../services/RaceService';
 
 export class Winner {
-  static winnerTextContent(obj: IWinner) {
-    const mainGarageTitleWinner = document.querySelector(
-      '.main__garage_title-winner',
-    );
+	static async winnerTextContent(obj: IWinner) {
+		const mainGarageTitleWinner = document.querySelector(
+			'.main__garage_title-winner',
+		);
 
-    if (mainGarageTitleWinner) {
-      RaceService()
-        .getCar(obj.currentId)
-        .then((data) => {
-          mainGarageTitleWinner.textContent = `Winner: ${
-            data.name
-          } Time: ${obj.animationSpeed.toFixed(5)} seconds`;
-          setTimeout(() => {
-            mainGarageTitleWinner.textContent = '';
-          }, 5000);
-        });
-    }
-  }
+		if (mainGarageTitleWinner) {
+			try {
+				const data = await RaceService().getCar(obj.currentId);
+				if (data) {
+					mainGarageTitleWinner.textContent = `Winner: ${
+						data.name
+					} Time: ${obj.animationSpeed.toFixed(5)} seconds`;
+				}
+				setTimeout(() => {
+					mainGarageTitleWinner.textContent = '';
+				}, 5000);
+			} catch (error) {
+				console.error(error);
+			}
+		}
+	}
 
-  static resetWinnerTextContent() {
-    const mainGarageTitleWinner = document.querySelector(
-      '.main__garage_title-winner',
-    );
-    if (mainGarageTitleWinner) {
-      mainGarageTitleWinner.textContent = '';
-    }
-  }
+	static resetWinnerTextContent() {
+		const mainGarageTitleWinner = document.querySelector(
+			'.main__garage_title-winner',
+		);
+		if (mainGarageTitleWinner) {
+			mainGarageTitleWinner.textContent = '';
+		}
+	}
 }
