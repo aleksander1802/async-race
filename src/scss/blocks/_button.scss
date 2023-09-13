@@ -1,0 +1,32 @@
+.button {
+	color: #fff;
+	background-image: linear-gradient(to right, #000000, #dd190b, #000000);
+	font-weight: 500;
+	font-size: 0.85em;
+	padding-left: 1.25rem;
+	padding-right: 1.25rem;
+	padding-top: 0.625rem;
+	padding-bottom: 0.625rem;
+	text-align: center;    
+
+	&:hover {
+		background-image: linear-gradient(to bottom right, #9700fc, #000000);
+        
+	}
+
+	&:focus {
+		outline: none;
+		box-shadow: 0 0 0 1px #dd190b, 0 0 0 3px rgba(227, 243, 0, 0.781);
+	}
+	&:active {
+		filter: grayscale(100%);
+	}
+
+	box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.05),
+		0 2px 4px 0 rgba(49, 151, 243, 0.1);
+
+	
+	&:disabled {
+		filter: grayscale(100%);
+	}
+}
